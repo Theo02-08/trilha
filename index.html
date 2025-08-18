@@ -6,15 +6,15 @@
     <title>Integra+Edu - Vestibular UPF</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --text-color: #333;
-            --bg-color: #f9f9f9;
+            --primary-color: #00BCD4; /* Ciano Turquesa */
+            --secondary-color: #4DD0E1; /* Azul Celeste Claro */
+            --accent-color: #FF7043; /* Laranja Coral */
+            --success-color: #66BB6A; /* Verde Maçã */
+            --warning-color: #FFD54F; /* Amarelo Pastel */
+            --light-color: #E0F7FA; /* Ciano Muito Claro */
+            --dark-color: #006064; /* Verde Água Escuro */
+            --text-color: #263238; /* Azul Escuro Quase Preto */
+            --bg-color: #FFFFFF; /* Branco Puro */
         }
 
         * {
@@ -37,7 +37,7 @@
             align-items: center;
             padding: 1rem 2rem;
             background-color: var(--primary-color);
-            color: white;
+            color: var(--bg-color); /* Texto do cabeçalho em branco */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
@@ -56,12 +56,12 @@
 
         .logo h1 {
             font-size: 1.8rem;
-            color: var(--light-color);
+            color: var(--bg-color);
         }
 
         .logo p {
             font-size: 0.9rem;
-            color: #bdc3c7;
+            color: #B2EBF2; /* Um tom de ciano mais claro para o subtítulo */
         }
 
         .btn {
@@ -96,8 +96,8 @@
         .hero {
             text-align: center;
             padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--primary-color), #34495e);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-color), #0097A7); /* Gradiente com tons de ciano */
+            color: var(--bg-color);
             position: relative;
             overflow: hidden;
             min-height: 80vh;
@@ -131,6 +131,7 @@
             animation: fadeInDown 1s;
             line-height: 1.2;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            color: var(--bg-color);
         }
 
         .hero p {
@@ -139,6 +140,7 @@
             animation: fadeInUp 1s;
             max-width: 800px;
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            color: #B2EBF2; /* Texto do hero mais claro */
         }
 
         .hero-buttons {
@@ -153,7 +155,7 @@
             align-items: center;
             padding: 1rem 2rem;
             background-color: var(--secondary-color);
-            color: white;
+            color: var(--dark-color); /* Texto do botão primário em verde água escuro */
             text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
@@ -168,8 +170,8 @@
             align-items: center;
             padding: 1rem 2rem;
             background-color: transparent;
-            color: white;
-            border: 2px solid white;
+            color: var(--bg-color);
+            border: 2px solid var(--bg-color);
             text-decoration: none;
             border-radius: 8px;
             font-weight: bold;
@@ -179,25 +181,25 @@
 
         /* MODIFICAÇÃO: Estilos para botões secundários e de logout para maior visibilidade */
         .btn-secondary {
-            background-color: #6c757d; /* Um cinza mais escuro */
-            color: white;
-            border: 1px solid #6c757d;
+            background-color: #B0BEC5; /* Um cinza azulado claro para contraste */
+            color: var(--dark-color);
+            border: 1px solid #B0BEC5;
         }
 
         .btn-secondary:hover {
-            background-color: #5a6268;
-            border-color: #545b62;
+            background-color: #90A4AE;
+            border-color: #90A4AE;
         }
 
         .btn-logout {
-            background-color: var(--accent-color); /* Vermelho */
-            color: white;
+            background-color: var(--accent-color); /* Laranja Coral */
+            color: var(--bg-color);
             border: 1px solid var(--accent-color);
         }
 
         .btn-logout:hover {
-            background-color: #c82333;
-            border-color: #bd2130;
+            background-color: #F4511E; /* Laranja mais escuro no hover */
+            border-color: #F4511E;
         }
         /* FIM MODIFICAÇÃO */
 
@@ -207,7 +209,7 @@
         }
 
         .btn-primary:hover {
-            background-color: #2980b9;
+            background-color: #26C6DA; /* Azul celeste mais escuro no hover */
             animation: none;
         }
 
@@ -252,7 +254,7 @@
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
-            background-color: white;
+            background-color: var(--bg-color); /* Manter branco para contraste */
             text-align: center;
             border: 1px solid rgba(0,0,0,0.05);
         }
@@ -269,13 +271,13 @@
         }
 
         .feature-card h3 {
-            color: var(--primary-color);
+            color: var(--dark-color); /* Títulos das features em verde água escuro */
             margin-bottom: 1rem;
             font-size: 1.5rem;
         }
 
         .feature-card p {
-            color: #666;
+            color: var(--text-color);
             font-size: 1.1rem;
             line-height: 1.6;
         }
@@ -283,7 +285,7 @@
         /* Testimonials - NOVA SEÇÃO */
         .testimonials {
             padding: 6rem 2rem;
-            background-color: #f5f7fa;
+            background-color: var(--light-color); /* Fundo ciano muito claro */
             text-align: center;
         }
 
@@ -293,7 +295,7 @@
         }
 
         .testimonial-card {
-            background-color: white;
+            background-color: var(--bg-color);
             padding: 2.5rem;
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -334,7 +336,7 @@
         }
 
         .author-info h4 {
-            color: var(--primary-color);
+            color: var(--dark-color);
             margin-bottom: 0.3rem;
         }
 
@@ -346,8 +348,8 @@
         /* Numbers - NOVA SEÇÃO */
         .numbers {
             padding: 5rem 2rem;
-            background: linear-gradient(135deg, var(--primary-color), #34495e);
-            color: white;
+            background: linear-gradient(135deg, var(--primary-color), #0097A7); /* Gradiente com tons de ciano */
+            color: var(--bg-color);
             text-align: center;
         }
 
@@ -381,7 +383,7 @@
         .cta {
             padding: 6rem 2rem;
             text-align: center;
-            background-color: white;
+            background-color: var(--bg-color);
         }
 
         .cta-container {
@@ -430,7 +432,7 @@
             flex: 1;
             padding: 1rem;
             border-radius: 8px;
-            background-color: white;
+            background-color: var(--bg-color);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
@@ -460,7 +462,7 @@
             transition: all 0.3s;
             text-decoration: none;
             color: var(--dark-color);
-            background-color: white;
+            background-color: var(--bg-color);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -479,7 +481,7 @@
         }
 
         .dashboard-card h3, .admin-card h3 {
-            color: var(--secondary-color);
+            color: var(--dark-color);
             margin-bottom: 0.5rem;
         }
 
@@ -506,7 +508,7 @@
         }
 
         .question-card {
-            background-color: white;
+            background-color: var(--bg-color);
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
@@ -585,17 +587,17 @@
         }
 
         .option.selected {
-            background-color: rgba(52, 152, 219, 0.1);
+            background-color: rgba(77, 208, 225, 0.1); /* Azul celeste transparente */
             border-color: var(--secondary-color);
         }
 
         .option.correct {
-            background-color: rgba(46, 204, 113, 0.1);
+            background-color: rgba(102, 187, 106, 0.1); /* Verde maçã transparente */
             border-color: var(--success-color);
         }
 
         .option.incorrect {
-            background-color: rgba(231, 76, 60, 0.1);
+            background-color: rgba(255, 112, 67, 0.1); /* Laranja coral transparente */
             border-color: var(--accent-color);
         }
 
@@ -640,7 +642,7 @@
         .topic-filter {
             margin-bottom: 2rem;
             padding: 1rem;
-            background-color: white;
+            background-color: var(--bg-color);
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: flex;
@@ -664,7 +666,7 @@
         }
 
         .result-card {
-            background-color: white;
+            background-color: var(--bg-color);
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
@@ -699,7 +701,7 @@
 
         /* Admin Panel */
         .admin-panel {
-            background-color: white;
+            background-color: var(--bg-color);
             padding: 1.5rem;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -759,7 +761,7 @@
             text-align: center;
             padding: 1.5rem;
             background-color: var(--primary-color);
-            color: white;
+            color: var(--bg-color);
             font-size: 0.9rem;
             margin-top: 2rem;
         }
@@ -772,7 +774,7 @@
         }
 
         .footer-links a {
-            color: white;
+            color: var(--bg-color);
             text-decoration: none;
         }
 
@@ -886,7 +888,7 @@
             bottom: 20px;
             right: 20px;
             background-color: var(--primary-color);
-            color: white;
+            color: var(--bg-color);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -900,10 +902,10 @@
 
         /* Dark Mode Styles */
         body.dark-mode {
-            --text-color: #f0f0f0;
-            --bg-color: #1a1a1a;
-            --light-color: #2d2d2d;
-            --dark-color: #f0f0f0;
+            --text-color: #E0E0E0; /* Cinza claro para texto */
+            --bg-color: #121212; /* Fundo bem escuro */
+            --light-color: #212121; /* Tons escuros para elementos claros */
+            --dark-color: #B2EBF2; /* Ciano claro para elementos escuros */
             background-color: var(--bg-color);
             color: var(--text-color);
         }
@@ -915,17 +917,17 @@
         body.dark-mode .topic-filter,
         body.dark-mode .admin-panel,
         body.dark-mode .stat-card {
-            background-color: #2d2d2d;
+            background-color: #212121; /* Fundo escuro para cards */
             color: var(--text-color);
         }
 
         body.dark-mode .option {
-            background-color: #333;
-            border-color: #444;
+            background-color: #333333;
+            border-color: #424242;
         }
 
         body.dark-mode .option:hover {
-            background-color: #3a3a3a;
+            background-color: #424242;
         }
 
         /* Notification */
@@ -952,10 +954,11 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.1); /* Fundo claro transparente */
             padding: 0.3rem 0.6rem;
             border-radius: 20px;
             font-size: 0.9rem;
+            color: var(--bg-color);
         }
 
         /* Bookmark */
@@ -983,17 +986,17 @@
         }
 
         .difficulty.easy {
-            background-color: rgba(46, 204, 113, 0.2);
+            background-color: rgba(102, 187, 106, 0.2);
             color: var(--success-color);
         }
 
         .difficulty.medium {
-            background-color: rgba(241, 196, 15, 0.2);
+            background-color: rgba(255, 213, 79, 0.2);
             color: var(--warning-color);
         }
 
         .difficulty.hard {
-            background-color: rgba(231, 76, 60, 0.2);
+            background-color: rgba(255, 112, 67, 0.2);
             color: var(--accent-color);
         }
 
@@ -1002,7 +1005,7 @@
             max-width: 500px;
             margin: 3rem auto;
             padding: 2rem;
-            background-color: white;
+            background-color: var(--bg-color);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
@@ -1018,7 +1021,7 @@
         }
 
         .login-header p {
-            color: #666;
+            color: var(--text-color);
         }
 
         .form-group {
@@ -1066,7 +1069,7 @@
             bottom: 20px;
             left: 20px;
             background-color: var(--primary-color);
-            color: white;
+            color: var(--bg-color);
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -1085,8 +1088,8 @@
 
         /* Estilos para a lista de perguntas no CRUD */
         .question-item {
-            background-color: #f8f9fa;
-            border: 1px solid #e9ecef;
+            background-color: var(--light-color); /* Fundo ciano muito claro */
+            border: 1px solid #B2EBF2;
             border-radius: 8px;
             padding: 1rem;
             margin-bottom: 1rem;
@@ -1102,7 +1105,7 @@
 
         .question-item p {
             font-size: 0.9rem;
-            color: #6c757d;
+            color: var(--dark-color);
         }
 
         .question-item .actions {
@@ -1137,7 +1140,8 @@
             width: 80%; /* Could be more or less, depending on screen size */
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
             animation-name: animatetop;
-            animation-duration: 0.4s
+            animation-duration: 0.4s;
+            background-color: var(--bg-color);
         }
 
         /* Add Animation */
