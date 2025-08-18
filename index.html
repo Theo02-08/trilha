@@ -1,0 +1,3181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integra+Edu - Vestibular UPF</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--light-color);
+        }
+
+        .logo p {
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-login {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-logout {
+            background-color: var(--accent-color);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Section - MELHORADA */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 1s;
+            max-width: 800px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+            animation: pulse 2s infinite;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        /* MODIFICAÇÃO: Estilos para botões secundários e de logout para maior visibilidade */
+        .btn-secondary {
+            background-color: #6c757d; /* Um cinza mais escuro */
+            color: white;
+            border: 1px solid #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        .btn-logout {
+            background-color: var(--accent-color); /* Vermelho */
+            color: white;
+            border: 1px solid var(--accent-color);
+        }
+
+        .btn-logout:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+        /* FIM MODIFICAÇÃO */
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            animation: none;
+        }
+
+        /* Features - MELHORADA */
+        .features-section {
+            padding: 5rem 2rem;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            background-color: white;
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Testimonials - NOVA SEÇÃO */
+        .testimonials {
+            padding: 6rem 2rem;
+            background-color: #f5f7fa;
+            text-align: center;
+        }
+
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin: 0 1rem;
+            text-align: left;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--secondary-color);
+            opacity: 0.2;
+            position: absolute;
+            top: -1.5rem;
+            left: -1rem;
+            font-family: serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .author-info h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Numbers - NOVA SEÇÃO */
+        .numbers {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary-color), #34495e);
+            color: white;
+            text-align: center;
+        }
+
+        .numbers-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .number-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .number-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Call to Action - NOVA SEÇÃO */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            background-color: white;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard h2 {
+            color: var(--primary-color);
+        }
+
+        .stats-cards {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .dashboard-cards, .admin-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dashboard-card, .admin-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--dark-color);
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .dashboard-card:hover, .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-card h3, .admin-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Question Page */
+        .exam-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .progress-container {
+            margin-bottom: 2rem;
+            background-color: #eee;
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        .question-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .question-topic {
+            background-color: var(--light-color);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .options-container {
+            margin-bottom: 1rem;
+        }
+
+        .option {
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .option:hover {
+            background-color: #f5f5f5;
+        }
+
+        .option-radio {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #ccc;
+            border-radius: 50%;
+        }
+
+        .option.selected .option-radio {
+            border-color: var(--secondary-color);
+            background-color: var(--secondary-color);
+        }
+
+        .option.correct .option-radio {
+            border-color: var(--success-color);
+            background-color: var(--success-color);
+        }
+
+        .option.incorrect .option-radio {
+            border-color: var(--accent-color);
+            background-color: var(--accent-color);
+        }
+
+        .option.selected {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-color: var(--secondary-color);
+        }
+
+        .option.correct {
+            background-color: rgba(46, 204, 113, 0.1);
+            border-color: var(--success-color);
+        }
+
+        .option.incorrect {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .question-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .btn-answer {
+            padding: 0.5rem 1rem;
+            background-color: var(--warning-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-next {
+            padding: 0.5rem 1rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .explanation {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--light-color);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .topic-filter {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .topic-filter select {
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            min-width: 200px;
+        }
+
+        /* Results Page */
+        .results-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        .result-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .result-score {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin: 1rem 0;
+        }
+
+        .result-message {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-details {
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .result-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            margin-bottom: 1rem;
+        }
+
+        .form-row label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-row input, .form-row select, .form-row textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-row textarea {
+            min-height: 100px;
+        }
+
+        .add-option-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .option-item input {
+            flex: 1;
+            margin-right: 0.5rem;
+        }
+
+        .remove-option {
+            color: var(--accent-color);
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1rem;
+                min-height: auto;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature-card {
+                min-width: 100%;
+            }
+            
+            .numbers-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--secondary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            --text-color: #f0f0f0;
+            --bg-color: #1a1a1a;
+            --light-color: #2d2d2d;
+            --dark-color: #f0f0f0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        body.dark-mode .feature-card,
+        body.dark-mode .dashboard-card,
+        body.dark-mode .admin-card,
+        body.dark-mode .question-card,
+        body.dark-mode .topic-filter,
+        body.dark-mode .admin-panel,
+        body.dark-mode .stat-card {
+            background-color: #2d2d2d;
+            color: var(--text-color);
+        }
+
+        body.dark-mode .option {
+            background-color: #333;
+            border-color: #444;
+        }
+
+        body.dark-mode .option:hover {
+            background-color: #3a3a3a;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem;
+            background-color: var(--success-color);
+            color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            animation: fadeInDown 0.3s;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        /* Timer */
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background-color: rgba(0, 0, 0, 0.1);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Bookmark */
+        .bookmark-btn {
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .bookmark-btn.bookmarked {
+            color: var(--warning-color);
+        }
+
+        /* Difficulty Tags */
+        .difficulty {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .difficulty.easy {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success-color);
+        }
+
+        .difficulty.medium {
+            background-color: rgba(241, 196, 15, 0.2);
+            color: var(--warning-color);
+        }
+
+        .difficulty.hard {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--accent-color);
+        }
+
+        /* Login Page */
+        .login-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-actions {
+            margin-top: 2rem;
+        }
+
+        .login-switch {
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+        }
+
+        .login-switch a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-switch a:hover {
+            text-decoration: underline;
+        }
+
+        /* Botão Voltar */
+        .btn-back {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 99;
+            display: none;
+        }
+
+        .btn-back.active {
+            display: flex;
+        }
+
+        /* Estilos para a lista de perguntas no CRUD */
+        .question-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .question-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .question-item p {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .question-item .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .question-item .actions .btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        /* Estilo para o modal */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1001; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal .admin-panel {
+            margin: 5% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            <div>
+                <h1>Integra+Edu</h1>
+                <p id="header-subtitle">Seu portal para o vestibular UPF</p>
+            </div>
+        </div>
+        <nav>
+            <button id="auth-button" class="btn btn-login">
+                <i class="fas fa-sign-in-alt"></i> Entrar
+            </button>
+        </nav>
+    </header>
+
+    <!-- Botão Voltar -->
+    <div class="btn-back" id="back-button">
+        <i class="fas fa-arrow-left"></i>
+    </div>
+
+    <!-- Páginas como seções -->
+    <main>
+        <!-- Página Inicial MELHORADA -->
+        <section id="home-page" class="page-section active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="hero-content">
+                    <h2>Prepare-se para o vestibular UPF com excelência</h2>
+                    <p>A plataforma definitiva com questões dos últimos 5 anos de Matemática e Biologia, organizadas por tópicos e com estatísticas personalizadas do seu desempenho</p>
+                    
+                    <div class="hero-buttons">
+                        <button id="start-button" class="btn-primary">
+                            <i class="fas fa-rocket"></i> Comece agora
+                        </button>
+                        <button id="learn-more" class="btn-secondary">
+                            <i class="fas fa-info-circle"></i> Saiba mais
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features-section">
+                <div class="section-title">
+                    <h2>Como podemos te ajudar a conquistar sua vaga</h2>
+                    <p>Nossa plataforma oferece tudo que você precisa para uma preparação completa e eficiente</p>
+                </div>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-square-root-alt"></i>
+                        </div>
+                        <h3>Matemática Completa</h3>
+                        <p>Questões organizadas por tópicos como álgebra, geometria, trigonometria e cálculo, com explicações detalhadas para cada uma.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <h3>Biologia Detalhada</h3>
+                        <p>Conteúdo completo dividido por citologia, genética, ecologia, evolução e fisiologia, com os principais tópicos cobrados.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Estatísticas Poderosas</h3>
+                        <p>Acompanhe seu desempenho por tópico, identifique pontos fracos e veja seu progresso ao longo do tempo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="testimonials">
+                <div class="section-title">
+                    <h2>O que nossos alunos dizem</h2>
+                    <p>Veja como o Integra+Edu tem ajudado estudantes a conquistarem suas vagas</p>
+                </div>
+
+                <div class="testimonial-container">
+                    <div class="testimonial-card">
+                        <div class="testimonial-text">
+                            Graças ao Integra+Edu consegui identificar meus pontos fracos e melhorar meu desempenho em matemática. A organização por tópicos foi essencial para minha aprovação!
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Ana Silva">
+                            <div class="author-info">
+                                <h4>Ana Silva</h4>
+                                <p>Aprovada em Medicina - UPF 2023</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Numbers Section -->
+            <div class="numbers">
+                <div class="numbers-container">
+                    <div class="number-item">
+                        <div class="number">5+</div>
+                        <div class="number-label">Anos de provas</div>
+                    </div>
+                    <div class="number-item">
+                        <div class="number">500+</div>
+                        <div class="number-label">Questões disponíveis</div>
+                    </div>
+                    <div class="number-item">
+                        <div class="number">95%</div>
+                        <div class="number-label">Taxa de satisfação</div>
+                    </div>
+                    <div class="number-item">
+                        <div class="number">1.2k</div>
+                        <div class="number-label">Estudantes ativos</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta">
+                <div class="cta-container">
+                    <h2>Pronto para transformar sua preparação?</h2>
+                    <p>Junte-se a milhares de estudantes que estão usando o Integra+Edu para alcançar seus objetivos no vestibular UPF</p>
+                    <button id="cta-button" class="btn-primary">
+                        <i class="fas fa-user-plus"></i> Criar minha conta agora
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Login -->
+        <section id="login-page" class="page-section">
+            <div class="login-container">
+                <div class="login-header">
+                    <i class="fas fa-user-graduate" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                    <h2>Integra+Edu</h2>
+                    <p id="login-type-text">Faça login para acessar</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> E-mail</label>
+                        <input type="email" id="email" required placeholder="exemplo@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i> Senha</label>
+                        <input type="password" id="password" required placeholder="Digite sua senha">
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-login" style="width: 100%;">
+                            <i class="fas fa-sign-in-alt"></i> Entrar
+                        </button>
+                        <p class="login-switch">É administrador? <a href="#" id="admin-login-toggle">Clique aqui</a></p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Painel do Usuário -->
+        <section id="user-dashboard" class="page-section">
+            <div class="dashboard">
+                <div class="dashboard-header">
+                    <h2><i class="fas fa-home"></i> Painel do Estudante</h2>
+                    <div class="timer">
+                        <i class="fas fa-clock"></i>
+                        <span id="study-timer">00:00:00</span>
+                    </div>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-questions">0</div>
+                        <div class="stat-label">Questões respondidas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="correct-answers">0</div>
+                        <div class="stat-label">Acertos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="accuracy-rate">0%</div>
+                        <div class="stat-label">Taxa de acerto</div>
+                    </div>
+                </div>
+
+                <h3><i class="fas fa-book-open"></i> Selecione uma matéria para começar:</h3>
+                
+                <div class="dashboard-cards">
+                    <a href="#" class="dashboard-card" id="math-card">
+                        <div class="card-icon">
+                            <i class="fas fa-square-root-alt"></i>
+                        </div>
+                        <h3>Matemática</h3>
+                        <p>Acesse questões por tópico</p>
+                        <div class="progress-container" style="width: 100%; margin-top: 1rem; height: 5px;">
+                            <div class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                        <small>0% concluído</small>
+                    </a>
+                    
+                    <a href="#" class="dashboard-card" id="bio-card">
+                        <div class="card-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <h3>Biologia</h3>
+                        <p>Conteúdo organizado</p>
+                        <div class="progress-container" style="width: 100%; margin-top: 1rem; height: 5px;">
+                            <div class="progress-bar" style="width: 0%;"></div>
+                        </div>
+                        <small>0% concluído</small>
+                    </a>
+
+                    <a href="#" class="dashboard-card" id="bookmarks-card">
+                        <div class="card-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <h3>Favoritos</h3>
+                        <p>Revise questões marcadas</p>
+                    </a>
+
+                    <a href="#" class="dashboard-card" id="weak-topics-card">
+                        <div class="card-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <h3>Tópicos Fracos</h3>
+                        <p>Foque nos pontos de melhoria</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Questões de Matemática -->
+        <section id="math-questions" class="page-section">
+            <div class="exam-container">
+                <div class="topic-filter">
+                    <h3><i class="fas fa-filter"></i> Filtrar por Tópico</h3>
+                    <select id="math-topic-filter">
+                        <option value="all">Todos os tópicos</option>
+                        <option value="Álgebra">Álgebra</option>
+                        <option value="Geometria">Geometria</option>
+                        <option value="Trigonometria">Trigonometria</option>
+                        <option value="Aritmética">Aritmética</option>
+                        <option value="Cálculo">Cálculo</option>
+                    </select>
+
+                    <select id="math-difficulty-filter">
+                        <option value="all">Todas as dificuldades</option>
+                        <option value="easy">Fácil</option>
+                        <option value="medium">Médio</option>
+                        <option value="hard">Difícil</option>
+                    </select>
+
+                    <button id="math-shuffle-btn" class="btn-primary">
+                        <i class="fas fa-random"></i> Embaralhar
+                    </button>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" id="math-progress-bar"></div>
+                </div>
+                
+                <div id="math-questions-container">
+                    <!-- As questões serão inseridas aqui pelo JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Questões de Biologia -->
+        <section id="bio-questions" class="page-section">
+            <div class="exam-container">
+                <div class="topic-filter">
+                    <h3><i class="fas fa-filter"></i> Filtrar por Tópico</h3>
+                    <select id="bio-topic-filter">
+                        <option value="all">Todos os tópicos</option>
+                        <option value="Citologia">Citologia</option>
+                        <option value="Genética">Genética</option>
+                        <option value="Ecologia">Ecologia</option>
+                        <option value="Evolução">Evolução</option>
+                        <option value="Fisiologia">Fisiologia</option>
+                    </select>
+
+                    <select id="bio-difficulty-filter">
+                        <option value="all">Todas as dificuldades</option>
+                        <option value="easy">Fácil</option>
+                        <option value="medium">Médio</option>
+                        <option value="hard">Difícil</option>
+                    </select>
+
+                    <button id="bio-shuffle-btn" class="btn-primary">
+                        <i class="fas fa-random"></i> Embaralhar
+                    </button>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" id="bio-progress-bar"></div>
+                </div>
+                
+                <div id="bio-questions-container">
+                    <!-- As questões serão inseridas aqui pelo JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Resultados -->
+        <section id="results-page" class="page-section">
+            <div class="results-container">
+                <div class="result-card">
+                    <h2><i class="fas fa-trophy"></i> Seu Desempenho</h2>
+                    <div class="result-score" id="result-score">0%</div>
+                    <div class="result-message" id="result-message"></div>
+                    
+                    <div class="result-details">
+                        <h3>Detalhes:</h3>
+                        <div class="result-detail">
+                            <span>Total de questões:</span>
+                            <span id="total-questions-result">0</span>
+                        </div>
+                        <div class="result-detail">
+                            <span>Acertos:</span>
+                            <span id="correct-answers-result">0</span>
+                        </div>
+                        <div class="result-detail">
+                            <span>Erros:</span>
+                            <span id="wrong-answers-result">0</span>
+                        </div>
+                        <div class="result-detail">
+                            <span>Tempo gasto:</span>
+                            <span id="time-spent-result">00:00:00</span>
+                        </div>
+                    </div>
+
+                    <button id="back-to-dashboard-btn" class="btn-primary" style="margin-top: 2rem;">
+                        <i class="fas fa-home"></i> Voltar ao Painel
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Painel do Admin -->
+        <section id="admin-dashboard" class="page-section">
+            <div class="dashboard">
+                <h2><i class="fas fa-cogs"></i> Painel Administrativo</h2>
+                
+                <div class="admin-actions">
+                    <a href="#" class="admin-card" id="add-exam">
+                        <div class="card-icon">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <h3>Adicionar Prova</h3>
+                        <p>Incluir nova prova no sistema</p>
+                    </a>
+                    
+                    <a href="#" class="admin-card" id="manage-content">
+                        <div class="card-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3>Gerenciar Conteúdo</h3>
+                        <p>Organizar por tópicos</p>
+                    </a>
+                    
+                    <a href="#" class="admin-card" id="manage-users">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Gerenciar Usuários</h3>
+                        <p>Adicionar/remover usuários</p>
+                    </a>
+
+                    <a href="#" class="admin-card" id="view-stats">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h3>Estatísticas</h3>
+                        <p>Ver desempenho dos alunos</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Adicionar Prova -->
+        <section id="add-exam-page" class="page-section">
+            <div class="admin-panel">
+                <h2><i class="fas fa-plus-circle"></i> Adicionar Nova Prova</h2>
+                
+                <form id="addExamForm">
+                    <div class="form-row">
+                        <label for="exam-year"><i class="fas fa-calendar-alt"></i> Ano da Prova:</label>
+                        <input type="number" id="exam-year" min="2019" max="2023" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <label for="exam-subject"><i class="fas fa-book"></i> Matéria:</label>
+                        <select id="exam-subject" required>
+                            <option value="Matemática">Matemática</option>
+                            <option value="Biologia">Biologia</option>
+                        </select>
+                    </div>
+                    
+                    <div id="questions-container">
+                        <h3><i class="fas fa-question-circle"></i> Questões</h3>
+                        <div class="question-form">
+                            <div class="form-row">
+                                <label for="question-text"><i class="fas fa-question"></i> Texto da Questão:</label>
+                                <textarea id="question-text" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="question-topic"><i class="fas fa-tag"></i> Tópico:</label>
+                                <input type="text" id="question-topic" required>
+                            </div>
+
+                            <div class="form-row">
+                                <label for="question-difficulty"><i class="fas fa-battery-three-quarters"></i> Dificuldade:</label>
+                                <select id="question-difficulty" required>
+                                    <option value="easy">Fácil</option>
+                                    <option value="medium">Médio</option>
+                                    <option value="hard">Difícil</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-row">
+                                <label><i class="fas fa-list-ol"></i> Opções:</label>
+                                <div id="options-container">
+                                    <div class="option-item">
+                                        <input type="text" placeholder="Opção 1" required>
+                                        <span class="remove-option">×</span>
+                                    </div>
+                                    <div class="option-item">
+                                        <input type="text" placeholder="Opção 2" required>
+                                        <span class="remove-option">×</span>
+                                    </div>
+                                </div>
+                                <button type="button" class="add-option-btn">
+                                    <i class="fas fa-plus"></i> Adicionar Opção
+                                </button>
+                            </div>
+                            
+                            <div class="form-row">
+                                <label for="correct-answer"><i class="fas fa-check-circle"></i> Resposta Correta:</label>
+                                <select id="correct-answer" required>
+                                    <!-- Opções serão preenchidas pelo JavaScript -->
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <label for="question-explanation"><i class="fas fa-lightbulb"></i> Explicação (Opcional):</label>
+                                <textarea id="question-explanation" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="add-question-btn" class="btn-primary">
+                        <i class="fas fa-plus"></i> Adicionar Outra Questão
+                    </button>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i> Salvar Prova
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Página de Estatísticas -->
+        <section id="stats-page" class="page-section">
+            <div class="dashboard">
+                <h2><i class="fas fa-chart-pie"></i> Estatísticas</h2>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-users">0</div>
+                        <div class="stat-label">Usuários Registrados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-questions-stats">0</div>
+                        <div class="stat-label">Questões no Sistema</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-answers">0</div>
+                        <div class="stat-label">Respostas Registradas</div>
+                    </div>
+                </div>
+
+                <div class="admin-panel" style="margin-top: 2rem;">
+                    <h3><i class="fas fa-chart-bar"></i> Desempenho por Tópico</h3>
+                    <div id="topic-stats-chart" style="height: 300px; margin-top: 1rem;">
+                        <!-- Gráfico será renderizado aqui -->
+                        <p style="text-align: center; margin-top: 5rem; color: #777;">
+                            <i class="fas fa-chart-bar" style="font-size: 3rem;"></i><br>
+                            Dados de desempenho serão exibidos aqui
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+<!-- =================== GERENCIAR PERGUNTAS =================== -->
+<section id="manage-questions-page" class="page-section">
+  <div class="admin-panel">
+    <h2><i class="fas fa-question-circle"></i> Gerenciar Perguntas</h2>
+
+    <div class="form-row" style="gap:.5rem; align-items:flex-start;">
+      <label for="question-subject-filter"><i class="fas fa-filter"></i> Filtrar por Matéria:</label>
+      <div style="display:flex; flex-wrap:wrap; gap:.5rem; align-items:center;">
+        <select id="question-subject-filter">
+          <option value="all">Todas</option>
+          <option value="Matemática">Matemática</option>
+          <option value="Biologia">Biologia</option>
+        </select>
+        <button id="add-new-question-btn" class="btn-primary"><i class="fas fa-plus"></i> Nova Pergunta</button>
+        <button id="export-questions-btn" class="btn-secondary"><i class="fas fa-download"></i> Exportar</button>
+        <input type="file" id="import-questions-input" accept=".json" style="display:none">
+        <button id="import-questions-btn" class="btn-secondary"><i class="fas fa-upload"></i> Importar</button>
+        <button id="remove-all-questions-btn" class="btn-logout"><i class="fas fa-trash-alt"></i> Remover Todas</button>
+      </div>
+    </div>
+
+    <div id="questions-list" style="margin-top: 1rem;"></div>
+  </div>
+</section>
+
+<!-- Modal de Pergunta -->
+<div id="question-modal" class="modal" style="display:none;">
+  <div class="admin-panel" style="max-width:800px; max-height:90vh; overflow-y:auto;">
+    <h2 id="modal-title"><i class="fas fa-plus-circle"></i> Adicionar Nova Pergunta</h2>
+    <form id="question-form">
+      <input type="hidden" id="modal-question-id">
+      <div class="form-row">
+        <label for="modal-subject">Matéria:</label>
+        <select id="modal-subject" required>
+          <option value="Matemática">Matemática</option>
+          <option value="Biologia">Biologia</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="modal-topic">Tópico:</label>
+        <input type="text" id="modal-topic" required>
+      </div>
+      <div class="form-row">
+        <label for="modal-difficulty">Dificuldade:</label>
+        <select id="modal-difficulty" required>
+          <option value="easy">Fácil</option>
+          <option value="medium">Médio</option>
+          <option value="hard">Difícil</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label for="modal-question-text">Pergunta:</label>
+        <textarea id="modal-question-text" rows="3" required></textarea>
+      </div>
+      <div class="form-row">
+        <label>Opções:</label>
+        <div id="modal-options-container"></div>
+        <button type="button" class="btn-secondary" id="modal-add-option">+ Opção</button>
+      </div>
+      <div class="form-row">
+        <label for="modal-correct-answer">Resposta Correta:</label>
+        <select id="modal-correct-answer" required></select>
+      </div>
+      <div class="form-row">
+        <label for="modal-explanation">Explicação:</label>
+        <textarea id="modal-explanation" rows="2"></textarea>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-top:1rem;">
+        <button type="button" class="btn-secondary" id="cancel-question-btn">Cancelar</button>
+        <button type="submit" class="btn-primary">Salvar Pergunta</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- =========================================================== -->
+
+</main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="footer-links">
+            <a href="#"><i class="fas fa-info-circle"></i> Sobre</a>
+            <a href="#"><i class="fas fa-envelope"></i> Contato</a>
+            <a href="#"><i class="fas fa-question-circle"></i> Ajuda</a>
+            <a href="#"><i class="fas fa-shield-alt"></i> Privacidade</a>
+        </div>
+        <p>Integra+Edu &copy; 2023 - Plataforma de estudos para vestibular UPF</p>
+    </footer>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle" id="dark-mode-toggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i> <span id="notification-text">Operação realizada com sucesso!</span>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        // Banco de dados simulado com mais questões e funcionalidades
+        // Definir uma chave para o localStorage para as provas
+        const EXAMS_STORAGE_KEY = 'integraEduExams';
+        const USER_STATS_PREFIX = 'integraEduUserStats_'; // Prefixo para as estatísticas de usuário
+
+        // Função para carregar provas do localStorage
+        function loadExamsFromLocalStorage() {
+            const storedExams = localStorage.getItem(EXAMS_STORAGE_KEY);
+            if (storedExams) {
+                return JSON.parse(storedExams);
+            }
+            // Se não houver provas salvas, retorna um array vazio para começar do zero
+            return [];
+        }
+
+        // Função para salvar provas no localStorage
+        function saveExamsToLocalStorage(exams) {
+            localStorage.setItem(EXAMS_STORAGE_KEY, JSON.stringify(exams));
+        }
+
+        const database = {
+            users: [
+                { id: 1, email: 'user@example.com', password: 'user123', role: 'user' },
+                { id: 2, email: 'admin@example.com', password: 'admin123', role: 'admin' }
+            ],
+            // Carrega as provas do localStorage na inicialização
+            exams: loadExamsFromLocalStorage(),
+            // userStats será carregado dinamicamente por usuário
+            userStats: {} 
+        };
+
+        // Estado da aplicação
+        const state = {
+            currentPage: 'home',
+            isAdminLogin: false,
+            loggedIn: false,
+            userType: null,
+            userId: null,
+            currentExam: null,
+            currentSubject: null,
+            currentQuestions: [],
+            currentQuestionIndex: 0,
+            userAnswers: {},
+            bookmarkedQuestions: [],
+            studyStartTime: null,
+            studyTime: 0,
+            timerInterval: null,
+            darkMode: false,
+            previousPages: [] // Adicionado para rastrear histórico de navegação
+        };
+
+        // Elementos DOM
+        const pageSections = {
+            home: document.getElementById('home-page'),
+            login: document.getElementById('login-page'),
+            user: document.getElementById('user-dashboard'),
+            admin: document.getElementById('admin-dashboard'),
+            math: document.getElementById('math-questions'),
+            bio: document.getElementById('bio-questions'),
+            addExam: document.getElementById('add-exam-page'),
+            results: document.getElementById('results-page'),
+            stats: document.getElementById('stats-page'),
+            manageQuestions: document.getElementById('manage-questions-page') // Adicionado
+        };
+
+        const authButton = document.getElementById('auth-button');
+        const headerSubtitle = document.getElementById('header-subtitle');
+        const startButton = document.getElementById('start-button');
+        const loginForm = document.getElementById('loginForm');
+        const loginTypeText = document.getElementById('login-type-text');
+        const adminLoginToggle = document.getElementById('admin-login-toggle');
+        const mathCard = document.getElementById('math-card');
+        const bioCard = document.getElementById('bio-card');
+        const bookmarksCard = document.getElementById('bookmarks-card');
+        const weakTopicsCard = document.getElementById('weak-topics-card');
+        const addExamBtn = document.getElementById('add-exam');
+        const manageContentBtn = document.getElementById('manage-content'); // Será usado para "Gerenciar Perguntas"
+        const manageUsersBtn = document.getElementById('manage-users');
+        const viewStatsBtn = document.getElementById('view-stats');
+        const mathQuestionsContainer = document.getElementById('math-questions-container');
+        const bioQuestionsContainer = document.getElementById('bio-questions-container');
+        const mathTopicFilter = document.getElementById('math-topic-filter');
+        const bioTopicFilter = document.getElementById('bio-topic-filter');
+        const mathDifficultyFilter = document.getElementById('math-difficulty-filter');
+        const bioDifficultyFilter = document.getElementById('bio-difficulty-filter');
+        const mathShuffleBtn = document.getElementById('math-shuffle-btn');
+        const bioShuffleBtn = document.getElementById('bio-shuffle-btn');
+        const mathProgressBar = document.getElementById('math-progress-bar');
+        const bioProgressBar = document.getElementById('bio-progress-bar');
+        const addExamForm = document.getElementById('addExamForm');
+        const addQuestionBtn = document.getElementById('add-question-btn');
+        const backToDashboardBtn = document.getElementById('back-to-dashboard-btn');
+        const studyTimer = document.getElementById('study-timer');
+        const totalQuestionsElement = document.getElementById('total-questions');
+        const correctAnswersElement = document.getElementById('correct-answers');
+        const accuracyRateElement = document.getElementById('accuracy-rate');
+        const resultScoreElement = document.getElementById('result-score');
+        const resultMessageElement = document.getElementById('result-message');
+        const totalQuestionsResult = document.getElementById('total-questions-result');
+        const correctAnswersResult = document.getElementById('correct-answers-result');
+        const wrongAnswersResult = document.getElementById('wrong-answers-result');
+        const timeSpentResult = document.getElementById('time-spent-result');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notification-text');
+        const learnMoreBtn = document.getElementById('learn-more');
+        const ctaButton = document.getElementById('cta-button');
+        const backButton = document.getElementById('back-button');
+
+        // Funções de navegação
+        function showPage(page) {
+            // Salvar a página atual no histórico antes de mudar
+            if (state.currentPage !== page) {
+                state.previousPages.push(state.currentPage);
+            }
+            
+            Object.values(pageSections).forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            pageSections[page].classList.add('active');
+            state.currentPage = page;
+            
+            updateUI();
+            
+            // Mostrar/ocultar botão de voltar
+            if (page !== 'home' && page !== 'login') {
+                backButton.classList.add('active');
+            } else {
+                backButton.classList.remove('active');
+            }
+            
+            // Ações específicas de cada página
+            switch(page) {
+                case 'math':
+                    loadMathQuestions();
+                    startStudyTimer();
+                    break;
+                case 'bio':
+                    loadBioQuestions();
+                    startStudyTimer();
+                    break;
+                case 'user':
+                    updateUserStats();
+                    break;
+                case 'results':
+                    showResults();
+                    break;
+                case 'stats':
+                    loadStats();
+                    break;
+                case 'addExam':
+                    setupAddExamForm();
+                    break;
+                case 'manageQuestions': // Adicionado
+                    loadQuestionsList(); // Carrega a lista de questões para o CRUD
+                    break;
+                default:
+                    stopStudyTimer();
+            }
+            
+            // Rolar para o topo após a transição de página
+            window.scrollTo(0, 0);
+            
+            // Salvar estado no localStorage
+            saveState();
+        }
+
+        function goBack() {
+            if (state.previousPages.length > 0) {
+                const previousPage = state.previousPages.pop();
+                showPage(previousPage);
+            } else {
+                showPage('home');
+            }
+        }
+
+        function updateUI() {
+            if (state.loggedIn) {
+                authButton.innerHTML = '<i class="fas fa-sign-out-alt"></i> Sair';
+                authButton.className = 'btn btn-logout';
+                
+                if (state.userType === 'admin') {
+                    headerSubtitle.textContent = 'Painel do Administrador';
+                } else {
+                    headerSubtitle.textContent = 'Painel do Estudante';
+                }
+            } else {
+                authButton.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar';
+                authButton.className = 'btn btn-login';
+                headerSubtitle.textContent = 'Seu portal para o vestibular UPF';
+            }
+        }
+
+        // Funções para salvar e carregar estado
+        function saveState() {
+            const stateToSave = {
+                loggedIn: state.loggedIn,
+                userType: state.userType,
+                userId: state.userId,
+                // userAnswers e bookmarkedQuestions são parte de userStats, não precisam ser salvos separadamente aqui
+                studyTime: state.studyTime,
+                darkMode: state.darkMode,
+                previousPages: state.previousPages
+            };
+            
+            localStorage.setItem('appState', JSON.stringify(stateToSave));
+            
+            // Salvar estatísticas do usuário logado
+            if (state.userId && database.userStats[state.userId]) {
+                localStorage.setItem(`${USER_STATS_PREFIX}${state.userId}`, JSON.stringify(database.userStats[state.userId]));
+            }
+            // Salvar as provas (exams) sempre que houver uma modificação
+            saveExamsToLocalStorage(database.exams);
+        }
+
+        function loadState() {
+            const savedState = localStorage.getItem('appState');
+            if (savedState) {
+                const parsedState = JSON.parse(savedState);
+                
+                state.loggedIn = parsedState.loggedIn;
+                state.userType = parsedState.userType;
+                state.userId = parsedState.userId;
+                state.studyTime = parsedState.studyTime || 0;
+                state.previousPages = parsedState.previousPages || [];
+                
+                // Carregar estatísticas do usuário logado
+                if (state.userId) {
+                    const savedUserStats = localStorage.getItem(`${USER_STATS_PREFIX}${state.userId}`);
+                    if (savedUserStats) {
+                        database.userStats[state.userId] = JSON.parse(savedUserStats);
+                    } else {
+                        // Se não houver estatísticas salvas, inicializa com valores padrão
+                        database.userStats[state.userId] = {
+                            totalQuestions: 0,
+                            correctAnswers: 0,
+                            topics: {},
+                            bookmarks: [],
+                            answeredQuestions: [] // Adicionado para rastrear questões já respondidas
+                        };
+                    }
+                    // Atualiza o estado com os dados carregados
+                    state.bookmarkedQuestions = database.userStats[state.userId].bookmarks;
+                    state.userAnswers = database.userStats[state.userId].userAnswers || {}; // Carrega as respostas do usuário
+                }
+                
+                // Aplicar modo escuro
+                if (parsedState.darkMode) {
+                    toggleDarkMode();
+                }
+            }
+            // As provas (exams) já são carregadas na inicialização do objeto database
+        }
+
+        // Funções de autenticação
+        function login(email, password) {
+            const user = database.users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                if (state.isAdminLogin && user.role !== 'admin') {
+                    showNotification('Esta conta não é de administrador', 'error');
+                    return false;
+                }
+                
+                state.loggedIn = true;
+                state.userType = user.role;
+                state.userId = user.id;
+                
+                // Carregar estatísticas do usuário ao fazer login
+                const savedUserStats = localStorage.getItem(`${USER_STATS_PREFIX}${user.id}`);
+                if (savedUserStats) {
+                    database.userStats[user.id] = JSON.parse(savedUserStats);
+                } else {
+                    // Se não houver estatísticas salvas, inicializa com valores padrão
+                    database.userStats[user.id] = {
+                        totalQuestions: 0,
+                        correctAnswers: 0,
+                        topics: {},
+                        bookmarks: [],
+                        answeredQuestions: [],
+                        userAnswers: {} // Inicializa userAnswers aqui também
+                    };
+                }
+                
+                state.bookmarkedQuestions = database.userStats[user.id].bookmarks;
+                state.userAnswers = database.userStats[user.id].userAnswers; // Carrega as respostas do usuário
+                
+                showNotification('Login realizado com sucesso!', 'success');
+                
+                // Redirecionar para a página correta
+                if (state.userType === 'admin') {
+                    showPage('admin');
+                } else {
+                    showPage('user');
+                }
+                
+                saveState();
+                return true;
+            }
+            
+            showNotification('E-mail ou senha incorretos!', 'error');
+            return false;
+        }
+
+        function logout() {
+            // Salvar o estado atual do usuário antes de deslogar
+            saveState(); 
+
+            state.loggedIn = false;
+            state.userType = null;
+            state.userId = null;
+            state.currentExam = null;
+            state.currentQuestionIndex = 0;
+            state.userAnswers = {}; // Limpa as respostas do usuário no estado
+            state.bookmarkedQuestions = []; // Limpa os favoritos no estado
+            state.previousPages = [];
+            stopStudyTimer();
+            showNotification('Logout realizado com sucesso!', 'success');
+            showPage('home');
+            
+            // Não limpar o localStorage de userStats aqui, pois queremos persistir os dados do usuário
+            // localStorage.removeItem('appState'); // Pode ser mantido para outras configurações não relacionadas a userStats
+        }
+
+        // Funções para gerenciar questões
+        function loadMathQuestions() {
+            state.currentSubject = 'Matemática';
+            const selectedTopic = mathTopicFilter.value;
+            const selectedDifficulty = mathDifficultyFilter.value;
+            
+            let questions = [];
+            database.exams.forEach(exam => {
+                if (exam.subject === 'Matemática') {
+                    exam.questions.forEach(q => {
+                        if ((selectedTopic === 'all' || q.topic === selectedTopic) &&
+                            (selectedDifficulty === 'all' || q.difficulty === selectedDifficulty)) {
+                            questions.push({...q, examYear: exam.year});
+                        }
+                    });
+                }
+            });
+            
+            state.currentQuestions = shuffleArray(questions);
+            state.currentQuestionIndex = 0;
+            renderQuestions();
+        }
+
+        function loadBioQuestions() {
+            state.currentSubject = 'Biologia';
+            const selectedTopic = bioTopicFilter.value;
+            const selectedDifficulty = bioDifficultyFilter.value;
+            
+            let questions = [];
+            database.exams.forEach(exam => {
+                if (exam.subject === 'Biologia') {
+                    exam.questions.forEach(q => {
+                        if ((selectedTopic === 'all' || q.topic === selectedTopic) &&
+                            (selectedDifficulty === 'all' || q.difficulty === selectedDifficulty)) {
+                            questions.push({...q, examYear: exam.year});
+                        }
+                    });
+                }
+            });
+            
+            state.currentQuestions = shuffleArray(questions);
+            state.currentQuestionIndex = 0;
+            renderQuestions();
+        }
+
+        function renderQuestions() {
+            const container = state.currentSubject === 'Matemática' ? mathQuestionsContainer : bioQuestionsContainer;
+            const progressBar = state.currentSubject === 'Matemática' ? mathProgressBar : bioProgressBar;
+            
+            container.innerHTML = '';
+            
+            if (state.currentQuestions.length === 0) {
+                container.innerHTML = `
+                    <div class="question-card" style="text-align: center;">
+                        <h3>Nenhuma questão encontrada</h3>
+                        <p>Não há questões disponíveis com os filtros selecionados.</p>
+                        <button class="btn-primary" onclick="resetFilters('${state.currentSubject}')">
+                            <i class="fas fa-undo"></i> Limpar Filtros
+                        </button>
+                    </div>
+                `;
+                progressBar.style.width = '0%';
+                return;
+            }
+            
+            const question = state.currentQuestions[state.currentQuestionIndex];
+            const progress = ((state.currentQuestionIndex + 1) / state.currentQuestions.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            const isBookmarked = state.bookmarkedQuestions.includes(question.id);
+            
+            const questionElement = document.createElement('div');
+            questionElement.className = 'question-card';
+            questionElement.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">Questão ${state.currentQuestionIndex + 1} de ${state.currentQuestions.length}</span>
+                    <span class="question-topic">${question.topic} • <span class="difficulty ${question.difficulty}">${getDifficultyLabel(question.difficulty)}</span></span>
+                </div>
+                <div class="question-text">${question.questionText}</div>
+                <div class="options-container" id="options-container-${question.id}"></div>
+                <div class="explanation" id="explanation-${question.id}">
+                    <h4><i class="fas fa-lightbulb"></i> Explicação:</h4>
+                    <p>${question.explanation || 'Nenhuma explicação disponível.'}</p>
+                </div>
+                <div class="question-footer">
+                    <button class="bookmark-btn ${isBookmarked ? 'bookmarked' : ''}" data-question="${question.id}">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                    <div>
+                        <button class="btn-answer" data-question="${question.id}">
+                            <i class="fas fa-check-circle"></i> Ver Resposta
+                        </button>
+                        <button class="btn-next" ${state.currentQuestionIndex === state.currentQuestions.length - 1 ? 'disabled' : ''}>
+                            <i class="fas fa-arrow-right"></i> Próxima
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(questionElement);
+            
+            // Adicionar opções
+            const optionsContainer = document.getElementById(`options-container-${question.id}`);
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                // Verifica se a questão já foi respondida e marca a opção selecionada
+                if (state.userAnswers[question.id] !== undefined && state.userAnswers[question.id] === index) {
+                    optionElement.classList.add('selected');
+                    if (index === question.options.indexOf(question.correctAnswer)) {
+                        optionElement.classList.add('correct');
+                    } else {
+                        optionElement.classList.add('incorrect');
+                    }
+                }
+                optionElement.innerHTML = `
+                    <span class="option-radio"></span>
+                    ${option}
+                `;
+                // Apenas permite selecionar se a questão ainda não foi respondida
+                if (state.userAnswers[question.id] === undefined) {
+                    optionElement.addEventListener('click', () => selectAnswer(question.id, index));
+                } else {
+                    // Se já foi respondida, desabilita o clique
+                    optionElement.style.pointerEvents = 'none';
+                }
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Configurar botões
+            const bookmarkBtn = questionElement.querySelector('.bookmark-btn');
+            bookmarkBtn.addEventListener('click', () => toggleBookmark(question.id));
+            
+            const answerBtn = questionElement.querySelector('.btn-answer');
+            // Desabilita o botão "Ver Resposta" se a questão já foi respondida
+            if (state.userAnswers[question.id] !== undefined) {
+                answerBtn.style.display = 'none'; // Ou desabilita: answerBtn.disabled = true;
+                // Mostra a explicação automaticamente se já foi respondida
+                document.getElementById(`explanation-${question.id}`).classList.add('show');
+            } else {
+                answerBtn.addEventListener('click', () => showAnswer(question.id));
+            }
+            
+            const nextBtn = questionElement.querySelector('.btn-next');
+            nextBtn.addEventListener('click', nextQuestion);
+        }
+
+        function resetFilters(subject) {
+            if (subject === 'Matemática') {
+                mathTopicFilter.value = 'all';
+                mathDifficultyFilter.value = 'all';
+                loadMathQuestions();
+            } else {
+                bioTopicFilter.value = 'all';
+                bioDifficultyFilter.value = 'all';
+                loadBioQuestions();
+            }
+        }
+
+        function getDifficultyLabel(difficulty) {
+            switch(difficulty) {
+                case 'easy': return 'Fácil';
+                case 'medium': return 'Médio';
+                case 'hard': return 'Difícil';
+                default: return '';
+            }
+        }
+
+        // Funções para interação com questões
+        function selectAnswer(questionId, optionIndex) {
+            const question = state.currentQuestions.find(q => q.id === questionId);
+            if (!question) return;
+            
+            // Salva a resposta do usuário
+            state.userAnswers[questionId] = optionIndex;
+            // Atualiza as respostas do usuário nas estatísticas
+            database.userStats[state.userId].userAnswers = state.userAnswers;
+
+            // Atualizar estatísticas
+            if (state.userId) {
+                const userStats = database.userStats[state.userId];
+                
+                // Apenas incrementa se a questão não foi respondida antes
+                if (!userStats.answeredQuestions.includes(questionId)) {
+                    userStats.totalQuestions = (userStats.totalQuestions || 0) + 1;
+                    if (optionIndex === question.options.indexOf(question.correctAnswer)) {
+                        userStats.correctAnswers = (userStats.correctAnswers || 0) + 1;
+                    }
+                    // Marca a questão como respondida
+                    userStats.answeredQuestions.push(questionId);
+                }
+                
+                // Atualizar estatísticas por tópico
+                if (!userStats.topics[question.topic]) {
+                    userStats.topics[question.topic] = {
+                        total: 0,
+                        correct: 0,
+                        answered: []
+                    };
+                }
+                
+                // Apenas incrementa se a questão não foi respondida antes para este tópico
+                if (!userStats.topics[question.topic].answered.includes(questionId)) {
+                    userStats.topics[question.topic].total += 1;
+                    if (optionIndex === question.options.indexOf(question.correctAnswer)) {
+                        userStats.topics[question.topic].correct += 1;
+                    }
+                    userStats.topics[question.topic].answered.push(questionId);
+                }
+            }
+            
+            renderQuestions(); // Renderiza novamente para mostrar a resposta selecionada e a correção
+            saveState(); // Salva o estado atualizado
+        }
+
+        function showAnswer(questionId) {
+            const explanation = document.getElementById(`explanation-${questionId}`);
+            explanation.classList.add('show');
+            // Desabilita o botão "Ver Resposta" após mostrar a explicação
+            const answerBtn = document.querySelector(`.btn-answer[data-question="${questionId}"]`);
+            if (answerBtn) {
+                answerBtn.style.display = 'none';
+            }
+        }
+
+        function nextQuestion() {
+            if (state.currentQuestionIndex < state.currentQuestions.length - 1) {
+                state.currentQuestionIndex++;
+                renderQuestions();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function toggleBookmark(questionId) {
+            if (!state.userId) return;
+            
+            const userStats = database.userStats[state.userId];
+            userStats.bookmarks = userStats.bookmarks || []; // Garante que bookmarks existe
+            const index = userStats.bookmarks.indexOf(questionId);
+            
+            if (index === -1) {
+                userStats.bookmarks.push(questionId);
+                state.bookmarkedQuestions.push(questionId);
+                showNotification('Questão adicionada aos favoritos!', 'success');
+            } else {
+                userStats.bookmarks.splice(index, 1);
+                state.bookmarkedQuestions.splice(index, 1);
+                showNotification('Questão removida dos favoritos!', 'success');
+            }
+            
+            renderQuestions(); // Para atualizar o ícone de bookmark
+            saveState();
+        }
+
+        // Funções para estatísticas e resultados
+        function updateUserStats() {
+            if (!state.userId) return;
+            
+            const userStats = database.userStats[state.userId];
+            totalQuestionsElement.textContent = userStats.totalQuestions || 0;
+            correctAnswersElement.textContent = userStats.correctAnswers || 0;
+            
+            const accuracy = userStats.totalQuestions > 0 
+                ? Math.round((userStats.correctAnswers / userStats.totalQuestions) * 100) 
+                : 0;
+            accuracyRateElement.textContent = `${accuracy}%`;
+            
+            // Atualizar progresso nas matérias
+            updateSubjectProgress('Matemática');
+            updateSubjectProgress('Biologia');
+        }
+
+        function updateSubjectProgress(subject) {
+            const card = subject === 'Matemática' ? mathCard : bioCard;
+            const progressBar = card.querySelector('.progress-bar');
+            const progressText = card.querySelector('small');
+            
+            if (!state.userId) {
+                progressBar.style.width = '0%';
+                progressText.textContent = '0% concluído';
+                return;
+            }
+            
+            const userStats = database.userStats[state.userId];
+            let totalQuestionsInSubject = 0;
+            let answeredQuestionsInSubject = 0;
+            
+            database.exams.forEach(exam => {
+                if (exam.subject === subject) {
+                    exam.questions.forEach(q => {
+                        totalQuestionsInSubject++;
+                        // Verifica se a questão foi respondida pelo usuário
+                        if (userStats.answeredQuestions && userStats.answeredQuestions.includes(q.id)) {
+                            answeredQuestionsInSubject++;
+                        }
+                    });
+                }
+            });
+            
+            const progress = totalQuestionsInSubject > 0 ? Math.round((answeredQuestionsInSubject / totalQuestionsInSubject) * 100) : 0;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${progress}% concluído`;
+        }
+
+        function showResults() {
+            if (!state.currentQuestions.length) return;
+            
+            const totalQuestions = state.currentQuestions.length;
+            let correctAnswers = 0;
+            
+            state.currentQuestions.forEach(question => {
+                const userAnswer = state.userAnswers[question.id];
+                if (userAnswer !== undefined && 
+                    question.options[userAnswer] === question.correctAnswer) {
+                    correctAnswers++;
+                }
+            });
+            
+            const score = Math.round((correctAnswers / totalQuestions) * 100);
+            resultScoreElement.textContent = `${score}%`;
+            
+            let message = '';
+            if (score >= 80) {
+                message = 'Excelente desempenho! Continue assim!';
+            } else if (score >= 50) {
+                message = 'Bom trabalho, mas há espaço para melhorar!';
+            } else {
+                message = 'Estude mais esses tópicos e tente novamente!';
+            }
+            
+            resultMessageElement.textContent = message;
+            totalQuestionsResult.textContent = totalQuestions;
+            correctAnswersResult.textContent = correctAnswers;
+            wrongAnswersResult.textContent = totalQuestions - correctAnswers;
+            timeSpentResult.textContent = formatTime(state.studyTime);
+        }
+
+        function loadStats() {
+            if (!state.userId || state.userType !== 'admin') return;
+            
+            // Estatísticas simuladas para demonstração
+            document.getElementById('total-users').textContent = database.users.length;
+            
+            let totalQuestions = 0;
+            database.exams.forEach(exam => {
+                totalQuestions += exam.questions.length;
+            });
+            document.getElementById('total-questions-stats').textContent = totalQuestions;
+            
+            let totalAnswers = 0;
+            // Itera sobre todos os usuários para somar as respostas
+            for (const userId in database.userStats) {
+                if (database.userStats.hasOwnProperty(userId)) {
+                    totalAnswers += database.userStats[userId].totalQuestions || 0;
+                }
+            }
+            document.getElementById('total-answers').textContent = totalAnswers;
+        }
+
+        // Funções para o painel do admin
+        function setupAddExamForm() {
+            document.getElementById('exam-year').value = new Date().getFullYear();
+            document.getElementById('exam-subject').value = 'Matemática';
+            document.getElementById('question-text').value = '';
+            document.getElementById('question-topic').value = '';
+            document.getElementById('question-difficulty').value = 'medium';
+            document.getElementById('question-explanation').value = '';
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = `
+                <div class="option-item">
+                    <input type="text" placeholder="Opção 1" required>
+                    <span class="remove-option">×</span>
+                </div>
+                <div class="option-item">
+                    <input type="text" placeholder="Opção 2" required>
+                    <span class="remove-option">×</span>
+                </div>
+            `;
+            
+            updateCorrectAnswerOptions();
+            setupOptionListeners();
+        }
+
+        function updateCorrectAnswerOptions() {
+            const correctAnswerSelect = document.getElementById('correct-answer');
+            correctAnswerSelect.innerHTML = '';
+            
+            const options = document.querySelectorAll('#options-container input[type="text"]');
+            options.forEach((option, index) => {
+                const optionElement = document.createElement('option');
+                optionElement.value = index;
+                optionElement.textContent = `Opção ${index + 1}: ${option.value || ''}`;
+                correctAnswerSelect.appendChild(optionElement);
+            });
+        }
+
+        function setupOptionListeners() {
+            document.querySelectorAll('.remove-option').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (document.querySelectorAll('.option-item').length > 2) {
+                        this.parentElement.remove();
+                        updateCorrectAnswerOptions();
+                    } else {
+                        showNotification('Uma questão deve ter pelo menos duas opções.', 'error');
+                    }
+                });
+            });
+            
+            document.querySelectorAll('#options-container input').forEach(input => {
+                input.addEventListener('input', updateCorrectAnswerOptions);
+            });
+            
+            document.querySelector('.add-option-btn').addEventListener('click', function() {
+                const optionsCount = document.querySelectorAll('.option-item').length;
+                const newOption = document.createElement('div');
+                newOption.className = 'option-item';
+                newOption.innerHTML = `
+                    <input type="text" placeholder="Opção ${optionsCount + 1}" required>
+                    <span class="remove-option">×</span>
+                `;
+                
+                document.getElementById('options-container').appendChild(newOption);
+                newOption.querySelector('.remove-option').addEventListener('click', function() {
+                    if (document.querySelectorAll('.option-item').length > 2) {
+                        this.parentElement.remove();
+                        updateCorrectAnswerOptions();
+                    } else {
+                        showNotification('Uma questão deve ter pelo menos duas opções.', 'error');
+                    }
+                });
+                
+                newOption.querySelector('input').addEventListener('input', updateCorrectAnswerOptions);
+                updateCorrectAnswerOptions();
+            });
+        }
+
+        function saveExam() {
+            const year = parseInt(document.getElementById('exam-year').value);
+            const subject = document.getElementById('exam-subject').value;
+            const questionText = document.getElementById('question-text').value;
+            const topic = document.getElementById('question-topic').value;
+            const difficulty = document.getElementById('question-difficulty').value;
+            const correctAnswerIndex = parseInt(document.getElementById('correct-answer').value);
+            const explanation = document.getElementById('question-explanation').value;
+            
+            const options = [];
+            document.querySelectorAll('#options-container input').forEach(input => {
+                options.push(input.value);
+            });
+            
+            if (!year || !subject || !questionText || !topic || options.length < 2 || isNaN(correctAnswerIndex)) {
+                showNotification('Preencha todos os campos obrigatórios!', 'error');
+                return;
+            }
+            
+            const correctAnswer = options[correctAnswerIndex];
+            
+            // Encontrar ou criar o exame
+            let exam = database.exams.find(e => e.year === year && e.subject === subject);
+            if (!exam) {
+                exam = {
+                    id: database.exams.length + 1,
+                    year,
+                    subject,
+                    questions: []
+                };
+                database.exams.push(exam);
+            }
+            
+            // Adicionar a questão
+            // Gerar um ID único para a nova questão
+            const newQuestionId = Math.max(...database.exams.flatMap(e => e.questions.map(q => q.id)), 0) + 1;
+            exam.questions.push({
+                id: newQuestionId, // Usar um ID único
+                questionText,
+                options,
+                correctAnswer,
+                topic,
+                difficulty,
+                explanation
+            });
+            
+            // Salvar as provas atualizadas no localStorage
+            saveExamsToLocalStorage(database.exams);
+
+            showNotification('Prova salva com sucesso!', 'success');
+            showPage('admin');
+        }
+
+        // Funções auxiliares
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function showNotification(message, type) {
+            notificationText.textContent = message;
+            notification.className = 'notification show';
+            
+            switch(type) {
+                case 'success':
+                    notification.style.backgroundColor = 'var(--success-color)';
+                    notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                    break;
+                case 'error':
+                    notification.style.backgroundColor = 'var(--accent-color)';
+                    notification.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+                    break;
+                default:
+                    notification.style.backgroundColor = 'var(--secondary-color)';
+                    notification.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+            }
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function startStudyTimer() {
+            if (state.timerInterval) return;
+            
+            state.studyStartTime = new Date();
+            state.timerInterval = setInterval(() => {
+                state.studyTime = Math.floor((new Date() - state.studyStartTime) / 1000);
+                studyTimer.textContent = formatTime(state.studyTime);
+            }, 1000);
+        }
+
+        function stopStudyTimer() {
+            if (state.timerInterval) {
+                clearInterval(state.timerInterval);
+                state.timerInterval = null;
+            }
+        }
+
+        function formatTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            
+            return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function toggleDarkMode() {
+            state.darkMode = !state.darkMode;
+            document.body.classList.toggle('dark-mode', state.darkMode);
+            
+            const icon = darkModeToggle.querySelector('i');
+            if (state.darkMode) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+            
+            saveState();
+        }
+
+        // Event Listeners
+        authButton.addEventListener('click', function() {
+            if (state.loggedIn) {
+                logout();
+            } else {
+                showPage('login');
+            }
+        });
+
+        backButton.addEventListener('click', goBack);
+
+        startButton.addEventListener('click', function() {
+            showPage('login');
+        });
+
+        learnMoreBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: document.querySelector('.features-section').offsetTop - 80,
+                behavior: 'smooth'
+            });
+        });
+
+        ctaButton.addEventListener('click', function() {
+            showPage('login');
+        });
+
+        adminLoginToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            state.isAdminLogin = !state.isAdminLogin;
+            
+            if (state.isAdminLogin) {
+                loginTypeText.textContent = 'Faça login como administrador';
+            } else {
+                loginTypeText.textContent = 'Faça login para acessar';
+            }
+        });
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            login(email, password);
+        });
+
+        mathCard.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('math');
+        });
+
+        bioCard.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('bio');
+        });
+
+        bookmarksCard.addEventListener('click', function(e) {
+            e.preventDefault();
+            showNotification('Funcionalidade em desenvolvimento!', 'info');
+        });
+
+        weakTopicsCard.addEventListener('click', function(e) {
+            e.preventDefault();
+            showNotification('Funcionalidade em desenvolvimento!', 'info');
+        });
+
+        addExamBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('addExam');
+        });
+
+        // Alterado para ir para a página de Gerenciar Perguntas
+        manageContentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('manageQuestions');
+        });
+
+        manageUsersBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showNotification('Funcionalidade em desenvolvimento!', 'info');
+        });
+
+        viewStatsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('stats');
+        });
+
+        mathTopicFilter.addEventListener('change', loadMathQuestions);
+        bioTopicFilter.addEventListener('change', loadBioQuestions);
+        mathDifficultyFilter.addEventListener('change', loadMathQuestions);
+        bioDifficultyFilter.addEventListener('change', loadBioQuestions);
+
+        mathShuffleBtn.addEventListener('click', function() {
+            state.currentQuestions = shuffleArray(state.currentQuestions);
+            state.currentQuestionIndex = 0;
+            renderQuestions();
+            showNotification('Questões embaralhadas!', 'success');
+        });
+
+        bioShuffleBtn.addEventListener('click', function() {
+            state.currentQuestions = shuffleArray(state.currentQuestions);
+            state.currentQuestionIndex = 0;
+            renderQuestions();
+            showNotification('Questões embaralhadas!', 'success');
+        });
+
+        addQuestionBtn.addEventListener('click', function() {
+            showNotification('Adicione a questão atual antes de criar outra.', 'info');
+        });
+
+        addExamForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveExam();
+        });
+
+        backToDashboardBtn.addEventListener('click', function() {
+            showPage('user');
+        });
+
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+
+        // Inicialização do slider de depoimentos
+        $(document).ready(function(){
+            $('.testimonial-container').slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                adaptiveHeight: true,
+                autoplay: true,
+                autoplaySpeed: 5000
+            });
+            
+            // Carregar estado salvo
+            loadState();
+            
+            // Se estiver logado, mostrar a página correta
+            if (state.loggedIn) {
+                if (state.userType === 'admin') {
+                    showPage('admin');
+                } else {
+                    showPage('user');
+                }
+            } else {
+                // Se não estiver logado, garantir que a página inicial seja exibida
+                showPage('home');
+            }
+        });
+    </script>
+
+<!-- =================== SCRIPT CRUD =================== -->
+<script>
+(function(){
+  const notify = (msg) => alert(msg);
+  
+  // Função para obter todas as questões de database.exams
+  function getAllQuestions() {
+      return database.exams.flatMap(exam => exam.questions.map(q => ({
+          ...q,
+          examId: exam.id, // Adiciona o ID da prova para referência
+          examYear: exam.year, // Adiciona o ano da prova
+          subject: exam.subject // Adiciona a matéria da prova
+      })));
+  }
+
+  // Função para carregar a lista de perguntas
+  function loadQuestionsList() {
+      const questionsList = document.getElementById('questions-list');
+      questionsList.innerHTML = '';
+
+      const subjectFilter = document.getElementById('question-subject-filter').value;
+      const questions = getAllQuestions().filter(q => subjectFilter === 'all' || q.subject === subjectFilter);
+
+      if (questions.length === 0) {
+          questionsList.innerHTML = '<p>Nenhuma pergunta encontrada.</p>';
+          return;
+      }
+
+      questions.forEach(question => {
+          const questionItem = document.createElement('div');
+          questionItem.className = 'question-item';
+          questionItem.innerHTML = `
+              <h4>${question.questionText}</h4>
+              <p>Matéria: ${question.subject} | Tópico: ${question.topic} | Dificuldade: ${question.difficulty}</p>
+              <div class="actions">
+                <button class="btn btn-secondary edit-question" data-id="${question.id}"><i class="fas fa-edit"></i> Editar</button>
+                <button class="btn btn-logout delete-question" data-id="${question.id}"><i class="fas fa-trash-alt"></i> Excluir</button>
+              </div>
+          `;
+          questionsList.appendChild(questionItem);
+      });
+
+      // Adicionar eventos de edição e exclusão
+      document.querySelectorAll('.edit-question').forEach(btn => {
+          btn.addEventListener('click', function() {
+              const questionId = this.getAttribute('data-id');
+              openEditQuestionModal(questionId);
+          });
+      });
+
+      document.querySelectorAll('.delete-question').forEach(btn => {
+          btn.addEventListener('click', function() {
+              const questionId = this.getAttribute('data-id');
+              deleteQuestion(questionId);
+          });
+      });
+  }
+
+  // Função para abrir o modal de adição de nova pergunta
+  document.getElementById('add-new-question-btn').addEventListener('click', function() {
+      document.getElementById('modal-title').innerHTML = '<i class="fas fa-plus-circle"></i> Adicionar Nova Pergunta';
+      document.getElementById('modal-question-id').value = ''; // Limpa o ID para indicar nova pergunta
+      document.getElementById('question-form').reset(); // Limpa o formulário
+      document.getElementById('modal-options-container').innerHTML = `
+          <div class="option-item">
+              <input type="text" placeholder="Opção 1" required>
+              <span class="remove-option">×</span>
+          </div>
+          <div class="option-item">
+              <input type="text" placeholder="Opção 2" required>
+              <span class="remove-option">×</span>
+          </div>
+      `;
+      updateCorrectAnswerOptions();
+      setupModalOptionListeners();
+      document.getElementById('question-modal').style.display = 'block';
+  });
+
+  // Função para abrir o modal de edição de pergunta
+  function openEditQuestionModal(questionId) {
+      const question = getAllQuestions().find(q => q.id == questionId);
+      if (!question) return;
+
+      document.getElementById('modal-title').innerHTML = '<i class="fas fa-edit"></i> Editar Pergunta';
+      document.getElementById('modal-question-id').value = question.id;
+      document.getElementById('modal-subject').value = question.subject;
+      document.getElementById('modal-topic').value = question.topic;
+      document.getElementById('modal-difficulty').value = question.difficulty;
+      document.getElementById('modal-question-text').value = question.questionText;
+      document.getElementById('modal-explanation').value = question.explanation || '';
+
+      const modalOptionsContainer = document.getElementById('modal-options-container');
+      modalOptionsContainer.innerHTML = '';
+      question.options.forEach((option, index) => {
+          const optionItem = document.createElement('div');
+          optionItem.className = 'option-item';
+          optionItem.innerHTML = `
+              <input type="text" value="${option}" required>
+              <span class="remove-option">×</span>
+          `;
+          modalOptionsContainer.appendChild(optionItem);
+      });
+
+      updateCorrectAnswerOptions();
+      // Define a resposta correta no select
+      const correctAnswerIndex = question.options.indexOf(question.correctAnswer);
+      document.getElementById('modal-correct-answer').value = correctAnswerIndex;
+
+      setupModalOptionListeners();
+      document.getElementById('question-modal').style.display = 'block';
+  }
+
+  // Função para deletar uma pergunta
+  function deleteQuestion(questionId) {
+      if (!confirm('Tem certeza que deseja excluir esta pergunta?')) {
+          return;
+      }
+      let found = false;
+      for (let i = 0; i < database.exams.length; i++) {
+          const exam = database.exams[i];
+          const initialLength = exam.questions.length;
+          exam.questions = exam.questions.filter(q => q.id != questionId);
+          if (exam.questions.length < initialLength) {
+              found = true;
+              break;
+          }
+      }
+      if (found) {
+          saveExamsToLocalStorage(database.exams);
+          loadQuestionsList();
+          showNotification('Pergunta excluída com sucesso!', 'success');
+      } else {
+          showNotification('Erro: Pergunta não encontrada.', 'error');
+      }
+  }
+
+  // Função para configurar os ouvintes de eventos do modal
+  function setupModalOptionListeners() {
+      document.querySelectorAll('.remove-option').forEach(btn => {
+          btn.addEventListener('click', function() {
+              if (document.querySelectorAll('#modal-options-container .option-item').length > 2) {
+                  this.parentElement.remove();
+                  updateCorrectAnswerOptions();
+              } else {
+                  showNotification('Uma questão deve ter pelo menos duas opções.', 'error');
+              }
+          });
+      });
+      
+      document.querySelectorAll('#modal-options-container input').forEach(input => {
+          input.addEventListener('input', updateCorrectAnswerOptions);
+      });
+      
+      document.getElementById('modal-add-option').addEventListener('click', function() {
+          const optionsCount = document.querySelectorAll('#modal-options-container .option-item').length;
+          const newOption = document.createElement('div');
+          newOption.className = 'option-item';
+          newOption.innerHTML = `
+              <input type="text" placeholder="Opção ${optionsCount + 1}" required>
+              <span class="remove-option">×</span>
+          `;
+          
+          document.getElementById('modal-options-container').appendChild(newOption);
+          newOption.querySelector('.remove-option').addEventListener('click', function() {
+              if (document.querySelectorAll('#modal-options-container .option-item').length > 2) {
+                  this.parentElement.remove();
+                  updateCorrectAnswerOptions();
+              } else {
+                  showNotification('Uma questão deve ter pelo menos duas opções.', 'error');
+              }
+          });
+          
+          newOption.querySelector('input').addEventListener('input', updateCorrectAnswerOptions);
+          updateCorrectAnswerOptions();
+      });
+  }
+
+  // Função para atualizar as opções de resposta correta no modal
+  function updateCorrectAnswerOptions() {
+      const correctAnswerSelect = document.getElementById('modal-correct-answer');
+      correctAnswerSelect.innerHTML = '';
+      
+      const options = document.querySelectorAll('#modal-options-container input[type="text"]');
+      options.forEach((option, index) => {
+          const optionElement = document.createElement('option');
+          optionElement.value = index;
+          optionElement.textContent = `Opção ${index + 1}: ${option.value || ''}`;
+          correctAnswerSelect.appendChild(optionElement);
+      });
+  }
+
+  // Função para salvar a pergunta (adicionar ou editar)
+  document.getElementById('question-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const questionId = document.getElementById('modal-question-id').value;
+      const subject = document.getElementById('modal-subject').value;
+      const topic = document.getElementById('modal-topic').value;
+      const difficulty = document.getElementById('modal-difficulty').value;
+      const questionText = document.getElementById('modal-question-text').value;
+      const explanation = document.getElementById('modal-explanation').value;
+
+      const options = [];
+      document.querySelectorAll('#modal-options-container input[type="text"]').forEach(input => {
+          options.push(input.value);
+      });
+
+      const correctAnswerIndex = parseInt(document.getElementById('modal-correct-answer').value);
+      const correctAnswer = options[correctAnswerIndex];
+
+      if (!subject || !topic || !questionText || options.length < 2 || isNaN(correctAnswerIndex) || correctAnswer === undefined) {
+          showNotification('Preencha todos os campos obrigatórios e garanta que as opções e a resposta correta estejam válidas!', 'error');
+          return;
+      }
+
+      if (questionId) {
+          // Editar pergunta existente
+          let found = false;
+          for (let i = 0; i < database.exams.length; i++) {
+              const exam = database.exams[i];
+              const question = exam.questions.find(q => q.id == questionId);
+              if (question) {
+                  question.subject = subject;
+                  question.topic = topic;
+                  question.difficulty = difficulty;
+                  question.questionText = questionText;
+                  question.options = options;
+                  question.correctAnswer = correctAnswer;
+                  question.explanation = explanation;
+                  found = true;
+                  break;
+              }
+          }
+          if (found) {
+              saveExamsToLocalStorage(database.exams);
+              showNotification('Pergunta editada com sucesso!', 'success');
+          } else {
+              showNotification('Erro: Pergunta não encontrada para edição.', 'error');
+          }
+      } else {
+          // Adicionar nova pergunta
+          const newQuestionId = Math.max(...getAllQuestions().map(q => q.id), 0) + 1;
+          // Para novas perguntas, vamos adicioná-las a um exame existente ou criar um novo para o ano atual (ex: 2023)
+          // Simplificando, vamos adicionar ao exame de 2023 da matéria selecionada.
+          let targetExam = database.exams.find(e => e.year === 2023 && e.subject === subject);
+          if (!targetExam) {
+              // Se não existir um exame para 2023 e a matéria, cria um novo
+              targetExam = {
+                  id: database.exams.length + 1,
+                  year: 2023,
+                  subject: subject,
+                  questions: []
+              };
+              database.exams.push(targetExam);
+          }
+          
+          targetExam.questions.push({
+              id: newQuestionId,
+              questionText,
+              options,
+              correctAnswer,
+              topic,
+              difficulty,
+              explanation
+          });
+          saveExamsToLocalStorage(database.exams);
+          showNotification('Pergunta adicionada com sucesso!', 'success');
+      }
+
+      document.getElementById('question-modal').style.display = 'none';
+      loadQuestionsList();
+  });
+
+  // Botão de cancelar no modal
+  document.getElementById('cancel-question-btn').addEventListener('click', function() {
+      document.getElementById('question-modal').style.display = 'none';
+  });
+
+  // Filtro de matéria no painel de gerenciamento
+  document.getElementById('question-subject-filter').addEventListener('change', loadQuestionsList);
+
+  // Funções de importação e exportação (opcional, mas útil para CRUD)
+  document.getElementById('export-questions-btn').addEventListener('click', function() {
+      const questionsToExport = getAllQuestions();
+      const dataStr = JSON.stringify(questionsToExport, null, 2);
+      const blob = new Blob([dataStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'questions.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showNotification('Questões exportadas com sucesso!', 'success');
+  });
+
+  document.getElementById('import-questions-btn').addEventListener('click', function() {
+      document.getElementById('import-questions-input').click();
+  });
+
+  document.getElementById('import-questions-input').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (!file) {
+          return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          try {
+              const importedQuestions = JSON.parse(e.target.result);
+              if (!Array.isArray(importedQuestions)) {
+                  showNotification('Formato de arquivo inválido. Esperado um array de questões.', 'error');
+                  return;
+              }
+
+              // Lógica para integrar as questões importadas
+              // Isso pode ser complexo dependendo de como você quer lidar com IDs duplicados, etc.
+              // Por simplicidade, vamos adicionar as novas questões a um exame existente (ex: 2023 Matemática)
+              // e garantir IDs únicos.
+              let maxId = Math.max(...getAllQuestions().map(q => q.id), 0);
+              importedQuestions.forEach(q => {
+                  maxId++;
+                  q.id = maxId; // Garante ID único
+                  // Adiciona a questão ao exame de 2023 da matéria correspondente
+                  let targetExam = database.exams.find(e => e.year === 2023 && e.subject === q.subject);
+                  if (!targetExam) {
+                      // Se não existir, cria um novo exame para 2023 e a matéria
+                      targetExam = {
+                          id: database.exams.length + 1,
+                          year: 2023,
+                          subject: q.subject,
+                          questions: []
+                      };
+                      database.exams.push(targetExam);
+                  }
+                  targetExam.questions.push(q);
+              });
+              
+              saveExamsToLocalStorage(database.exams);
+              loadQuestionsList();
+              showNotification('Questões importadas com sucesso!', 'success');
+          } catch (error) {
+              showNotification('Erro ao ler o arquivo JSON: ' + error.message, 'error');
+          }
+      };
+      reader.readAsText(file);
+  });
+
+  // NOVO: Função para remover todas as questões
+  document.getElementById('remove-all-questions-btn').addEventListener('click', function() {
+      if (confirm('ATENÇÃO: Esta ação removerá TODAS as questões do sistema. Deseja continuar?')) {
+          database.exams = []; // Limpa o array de exames
+          saveExamsToLocalStorage(database.exams); // Salva o estado vazio no localStorage
+          loadQuestionsList(); // Recarrega a lista de questões (que agora estará vazia)
+          showNotification('Todas as questões foram removidas com sucesso!', 'success');
+      }
+  });
+
+  // Função para mostrar notificações (já existe no script principal, mas duplicada para o CRUD)
+  function showNotification(message, type) {
+      const notificationElement = document.getElementById('notification');
+      const notificationTextElement = document.getElementById('notification-text');
+      
+      notificationTextElement.textContent = message;
+      notificationElement.className = 'notification show';
+      
+      switch(type) {
+          case 'success':
+              notificationElement.style.backgroundColor = 'var(--success-color)';
+              notificationElement.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+              break;
+          case 'error':
+              notificationElement.style.backgroundColor = 'var(--accent-color)';
+              notificationElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+              break;
+          default:
+              notificationElement.style.backgroundColor = 'var(--secondary-color)';
+              notificationElement.innerHTML = `<i class="fas fa-info-circle"></i> ${message}`;
+      }
+      
+      setTimeout(() => {
+          notificationElement.classList.remove('show');
+      }, 3000);
+  }
+
+  // Inicialização do CRUD
+  loadQuestionsList();
+})();
+</script>
+
+</body>
+</html>
