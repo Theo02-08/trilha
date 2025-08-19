@@ -1313,6 +1313,41 @@
                         <p class="login-switch">É administrador? <a href="#" id="admin-login-toggle">Clique aqui</a></p>
                     </div>
                 </form>
+                <!-- NOVO: Formulário de Cadastro -->
+                <div id="register-container" style="display:none;">
+                    <div class="login-header">
+                        <i class="fas fa-user-plus" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                        <h2>Cadastre-se no Integra+Edu</h2>
+                        <p>Preencha os dados para solicitar acesso</p>
+                    </div>
+
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="register-email"><i class="fas fa-envelope"></i> E-mail</label>
+                            <input type="email" id="register-email" required placeholder="seu@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-password"><i class="fas fa-lock"></i> Senha</label>
+                            <input type="password" id="register-password" required placeholder="Crie sua senha">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="register-confirm-password"><i class="fas fa-lock"></i> Confirmar Senha</label>
+                            <input type="password" id="register-confirm-password" required placeholder="Confirme sua senha">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                <i class="fas fa-user-plus"></i> Solicitar Cadastro
+                            </button>
+                        </div>
+                    </form>
+                    <p class="login-switch">Já tem uma conta? <a href="#" id="show-login-form">Faça login</a></p>
+                </div>
+
+                <!-- Modificar o login-switch existente para alternar entre login e cadastro -->
+                <p class="login-switch" id="login-switch-text">Não tem uma conta? <a href="#" id="show-register-form">Cadastre-se</a></p>
             </div>
         </section>
 
@@ -1525,6 +1560,15 @@
                         <p>Adicionar/remover usuários</p>
                     </a>
 
+                    <!-- NOVO: Card para Aprovar Usuários -->
+                    <a href="#" class="admin-card" id="manage-users-approval">
+                        <div class="card-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3>Aprovar Usuários</h3>
+                        <p>Gerenciar cadastros pendentes</p>
+                    </a>
+
                     <a href="#" class="admin-card" id="view-stats">
                         <div class="card-icon">
                             <i class="fas fa-chart-pie"></i>
@@ -1727,6 +1771,27 @@
 </div>
 <!-- =========================================================== -->
 
+<!-- NOVO: Página de Gerenciamento de Usuários (Admin) -->
+<section id="manage-users-page" class="page-section">
+    <div class="admin-panel">
+        <h2><i class="fas fa-user-check"></i> Gerenciar Usuários</h2>
+
+        <div class="form-row">
+            <label for="user-filter-status"><i class="fas fa-filter"></i> Filtrar por Status:</label>
+            <select id="user-filter-status">
+                <option value="all">Todos</option>
+                <option value="pending">Pendentes</option>
+                <option value="approved">Aprovados</option>
+                <option value="rejected">Rejeitados</option>
+            </select>
+        </div>
+
+        <div id="users-list" style="margin-top: 1rem;">
+            <!-- Lista de usuários será renderizada aqui -->
+        </div>
+    </div>
+</section>
+
 </main>
 
     <!-- Rodapé -->
@@ -1753,10 +1818,26 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <script>
-        // Banco de dados simulado com mais questões e funcionalidades
+        // ===========================================================
+        // NOVO: Funções de Hash Simples (para demonstração)
+        // ===========================================================
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash |= 0; // Converte para um inteiro de 32 bits
+            }
+            return hash.toString();
+        }
+
+        // ===========================================================
+        // MODIFICADO: Banco de dados simulado (database object)
+        // ===========================================================
         // Definir uma chave para o localStorage para as provas
         const EXAMS_STORAGE_KEY = 'integraEduExams';
         const USER_STATS_PREFIX = 'integraEduUserStats_'; // Prefixo para as estatísticas de usuário
+        const USERS_STORAGE_KEY = 'integraEduUsers'; // Nova chave para usuários
 
         // Função para carregar provas do localStorage
         function loadExamsFromLocalStorage() {
@@ -1773,12 +1854,26 @@
             localStorage.setItem(EXAMS_STORAGE_KEY, JSON.stringify(exams));
         }
 
+        // NOVO: Função para carregar usuários do localStorage
+        function loadUsersFromLocalStorage() {
+            const storedUsers = localStorage.getItem(USERS_STORAGE_KEY);
+            if (storedUsers) {
+                return JSON.parse(storedUsers);
+            }
+            // Se não houver usuários salvos, retorna os usuários padrão
+            return [
+                { id: 1, email: 'user@example.com', password: simpleHash('user123'), role: 'user', status: 'approved', registrationDate: '2023-01-01T10:00:00Z' },
+                { id: 2, email: 'admin@example.com', password: simpleHash('admin123'), role: 'admin', status: 'approved', registrationDate: '2023-01-01T10:00:00Z' }
+            ];
+        }
+
+        // NOVO: Função para salvar usuários no localStorage
+        function saveUsersToLocalStorage() {
+            localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(database.users));
+        }
+
         const database = {
-            users: [
-                { id: 1, email: 'user@example.com', password: 'user123', role: 'user' },
-                { id: 2, email: 'admin@example.com', password: 'admin123', role: 'admin' }
-            ],
-            // Carrega as provas do localStorage na inicialização
+            users: loadUsersFromLocalStorage(), // Carrega usuários na inicialização
             exams: loadExamsFromLocalStorage(),
             // userStats será carregado dinamicamente por usuário
             userStats: {} 
@@ -1815,7 +1910,8 @@
             addExam: document.getElementById('add-exam-page'),
             results: document.getElementById('results-page'),
             stats: document.getElementById('stats-page'),
-            manageQuestions: document.getElementById('manage-questions-page') // Adicionado
+            manageQuestions: document.getElementById('manage-questions-page'), // Adicionado
+            manageUsersPage: document.getElementById('manage-users-page') // NOVO
         };
 
         const authButton = document.getElementById('auth-button');
@@ -1861,6 +1957,19 @@
         const learnMoreBtn = document.getElementById('learn-more');
         const ctaButton = document.getElementById('cta-button');
         const backButton = document.getElementById('back-button');
+
+        // NOVO: Variáveis DOM para cadastro e gerenciamento de usuários
+        const registerContainer = document.getElementById('register-container');
+        const loginContainer = document.querySelector('.login-container'); // O container principal do login
+        const showRegisterFormBtn = document.getElementById('show-register-form');
+        const showLoginFormBtn = document.getElementById('show-login-form');
+        const registerForm = document.getElementById('registerForm');
+        const loginSwitchText = document.getElementById('login-switch-text'); // O elemento <p> que contém o link de alternância
+
+        const manageUsersApprovalBtn = document.getElementById('manage-users-approval'); // Botão no painel do admin
+        const userFilterStatus = document.getElementById('user-filter-status');
+        const usersListContainer = document.getElementById('users-list');
+
 
         // Funções de navegação
         function showPage(page) {
@@ -1909,6 +2018,9 @@
                     break;
                 case 'manageQuestions': // Adicionado
                     loadQuestionsList(); // Carrega a lista de questões para o CRUD
+                    break;
+                case 'manageUsersPage': // NOVO: Carregar lista de usuários
+                    loadUsersList();
                     break;
                 default:
                     stopStudyTimer();
@@ -1967,6 +2079,8 @@
             }
             // Salvar as provas (exams) sempre que houver uma modificação
             saveExamsToLocalStorage(database.exams);
+            // Salvar os usuários (incluindo status)
+            saveUsersToLocalStorage();
         }
 
         function loadState() {
@@ -2005,57 +2119,70 @@
                     toggleDarkMode();
                 }
             }
-            // As provas (exams) já são carregadas na inicialização do objeto database
+            // As provas (exams) e usuários já são carregadas na inicialização do objeto database
         }
 
         // Funções de autenticação
         function login(email, password) {
-            const user = database.users.find(u => u.email === email && u.password === password);
-            
-            if (user) {
-                if (state.isAdminLogin && user.role !== 'admin') {
-                    showNotification('Esta conta não é de administrador', 'error');
-                    return false;
-                }
-                
-                state.loggedIn = true;
-                state.userType = user.role;
-                state.userId = user.id;
-                
-                // Carregar estatísticas do usuário ao fazer login
-                const savedUserStats = localStorage.getItem(`${USER_STATS_PREFIX}${user.id}`);
-                if (savedUserStats) {
-                    database.userStats[user.id] = JSON.parse(savedUserStats);
-                } else {
-                    // Se não houver estatísticas salvas, inicializa com valores padrão
-                    database.userStats[user.id] = {
-                        totalQuestions: 0,
-                        correctAnswers: 0,
-                        topics: {},
-                        bookmarks: [],
-                        answeredQuestions: [],
-                        userAnswers: {} // Inicializa userAnswers aqui também
-                    };
-                }
-                
-                state.bookmarkedQuestions = database.userStats[user.id].bookmarks;
-                state.userAnswers = database.userStats[user.id].userAnswers; // Carrega as respostas do usuário
-                
-                showNotification('Login realizado com sucesso!', 'success');
-                
-                // Redirecionar para a página correta
-                if (state.userType === 'admin') {
-                    showPage('admin');
-                } else {
-                    showPage('user');
-                }
-                
-                saveState();
-                return true;
+            const user = database.users.find(u => u.email === email);
+
+            if (!user) {
+                showNotification('E-mail não cadastrado!', 'error');
+                return false;
+            }
+
+            // Verificar a senha (comparar com o hash)
+            if (simpleHash(password) !== user.password) {
+                showNotification('Senha incorreta!', 'error');
+                return false;
+            }
+
+            // Verificar o status de aprovação
+            if (user.status === 'pending') {
+                showNotification('Sua conta está pendente de aprovação. Aguarde a liberação do administrador.', 'info');
+                return false;
+            }
+
+            if (user.status === 'rejected') {
+                showNotification('Sua conta foi rejeitada. Entre em contato com o suporte.', 'error');
+                return false;
             }
             
-            showNotification('E-mail ou senha incorretos!', 'error');
-            return false;
+            // Se chegou aqui, o login é válido e o usuário está aprovado
+            state.loggedIn = true;
+            state.userType = user.role;
+            state.userId = user.id;
+            
+            // Carregar estatísticas do usuário ao fazer login
+            const savedUserStats = localStorage.getItem(`${USER_STATS_PREFIX}${user.id}`);
+            if (savedUserStats) {
+                database.userStats[user.id] = JSON.parse(savedUserStats);
+            } else {
+                // Se não houver estatísticas salvas, inicializa com valores padrão
+                database.userStats[user.id] = {
+                    totalQuestions: 0,
+                    correctAnswers: 0,
+                    topics: {},
+                    bookmarks: [],
+                    answeredQuestions: [],
+                    userAnswers: {} // Inicializa userAnswers aqui também
+                };
+            }
+            
+            state.bookmarkedQuestions = database.userStats[user.id].bookmarks;
+            state.userAnswers = database.userStats[user.id].userAnswers; // Carrega as respostas do usuário
+            
+            showNotification('Login realizado com sucesso!', 'success');
+            
+            // Redirecionar para a página correta
+            if (state.userType === 'admin') {
+                showPage('admin');
+            } else {
+                showPage('user');
+            }
+            
+            saveState();
+            return true;
         }
 
         function logout() {
@@ -2419,7 +2546,7 @@
             if (!state.userId || state.userType !== 'admin') return;
             
             // Estatísticas simuladas para demonstração
-            document.getElementById('total-users').textContent = database.users.length;
+            document.getElementById('total-users').textContent = database.users.length; // Agora reflete todos os usuários
             
             let totalQuestions = 0;
             database.exams.forEach(exam => {
@@ -2688,6 +2815,66 @@
             login(email, password);
         });
 
+        // NOVO: Event Listeners para alternar formulários de login/cadastro
+        showRegisterFormBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginContainer.style.display = 'none';
+            registerContainer.style.display = 'block';
+            loginSwitchText.style.display = 'none'; // Esconde o texto de alternar
+        });
+
+        showLoginFormBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            loginContainer.style.display = 'block';
+            registerContainer.style.display = 'none';
+            loginSwitchText.style.display = 'block'; // Mostra o texto de alternar
+        });
+
+        // NOVO: Lógica de registro
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('register-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                showNotification('As senhas não coincidem!', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showNotification('A senha deve ter pelo menos 6 caracteres!', 'error');
+                return;
+            }
+
+            // Verificar se o email já existe
+            if (database.users.some(u => u.email === email)) {
+                showNotification('Este e-mail já está cadastrado!', 'error');
+                return;
+            }
+
+            const hashedPassword = simpleHash(password);
+            const newUser = {
+                id: database.users.length > 0 ? Math.max(...database.users.map(u => u.id)) + 1 : 1, // Garante ID único
+                email: email,
+                password: hashedPassword,
+                role: 'user', // Novos usuários são sempre 'user'
+                status: 'pending', // Status inicial: pendente de aprovação
+                registrationDate: new Date().toISOString()
+            };
+
+            database.users.push(newUser);
+            saveUsersToLocalStorage(); // Salvar usuários atualizados
+            showNotification('Cadastro solicitado com sucesso! Aguarde a aprovação do administrador.', 'success');
+
+            // Limpar formulário e voltar para o login
+            registerForm.reset();
+            loginContainer.style.display = 'block';
+            registerContainer.style.display = 'none';
+            loginSwitchText.style.display = 'block';
+        });
+
+
         mathCard.addEventListener('click', function(e) {
             e.preventDefault();
             showPage('math');
@@ -2722,6 +2909,12 @@
         manageUsersBtn.addEventListener('click', function(e) {
             e.preventDefault();
             showNotification('Funcionalidade em desenvolvimento!', 'info');
+        });
+
+        // NOVO: Event Listener para o card de Aprovar Usuários
+        manageUsersApprovalBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('manageUsersPage');
         });
 
         viewStatsBtn.addEventListener('click', function(e) {
@@ -2762,6 +2955,124 @@
         });
 
         darkModeToggle.addEventListener('click', toggleDarkMode);
+
+        // NOVO: Lógica do Painel de Gerenciamento de Usuários (Admin)
+        userFilterStatus.addEventListener('change', loadUsersList);
+
+        function loadUsersList() {
+            usersListContainer.innerHTML = '';
+
+            const filterStatus = userFilterStatus.value;
+            const filteredUsers = database.users.filter(user => {
+                if (filterStatus === 'all') return true;
+                return user.status === filterStatus;
+            });
+
+            if (filteredUsers.length === 0) {
+                usersListContainer.innerHTML = '<p>Nenhum usuário encontrado com o filtro selecionado.</p>';
+                return;
+            }
+
+            filteredUsers.forEach(user => {
+                // Carregar as estatísticas do usuário para exibir acertos
+                const userStats = localStorage.getItem(`${USER_STATS_PREFIX}${user.id}`);
+                let totalQuestions = 0;
+                let correctAnswers = 0;
+                if (userStats) {
+                    const parsedStats = JSON.parse(userStats);
+                    totalQuestions = parsedStats.totalQuestions || 0;
+                    correctAnswers = parsedStats.correctAnswers || 0;
+                }
+
+                const userItem = document.createElement('div');
+                userItem.className = 'question-item'; // Reutilizando o estilo de question-item
+                userItem.innerHTML = `
+                    <h4>${user.email}</h4>
+                    <p>Função: ${user.role} | Status: <span style="font-weight: bold; color: ${getUserStatusColor(user.status)};">${getUserStatusLabel(user.status)}</span></p>
+                    <p>Data de Cadastro: ${new Date(user.registrationDate).toLocaleString()}</p>
+                    <p>Questões Respondidas: ${totalQuestions} | Acertos: ${correctAnswers}</p>
+                    <div class="actions">
+                        ${user.status === 'pending' ? `
+                            <button class="btn btn-success approve-user" data-id="${user.id}"><i class="fas fa-check"></i> Aprovar</button>
+                            <button class="btn btn-logout reject-user" data-id="${user.id}"><i class="fas fa-times"></i> Rejeitar</button>
+                        ` : ''}
+                        ${user.status !== 'pending' && user.role !== 'admin' ? `
+                            <button class="btn btn-logout remove-user" data-id="${user.id}"><i class="fas fa-trash-alt"></i> Remover</button>
+                        ` : ''}
+                    </div>
+                `;
+                usersListContainer.appendChild(userItem);
+            });
+
+            // Adicionar eventos para os botões de ação
+            document.querySelectorAll('.approve-user').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    updateUserStatus(userId, 'approved');
+                });
+            });
+
+            document.querySelectorAll('.reject-user').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    updateUserStatus(userId, 'rejected');
+                });
+            });
+
+            document.querySelectorAll('.remove-user').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    removeUser(userId);
+                });
+            });
+        }
+
+        // Função auxiliar para obter a cor do status
+        function getUserStatusColor(status) {
+            switch (status) {
+                case 'pending': return 'var(--warning-color)';
+                case 'approved': return 'var(--success-color)';
+                case 'rejected': return 'var(--accent-color)';
+                default: return 'var(--text-color)';
+            }
+        }
+
+        // Função auxiliar para obter o label do status
+        function getUserStatusLabel(status) {
+            switch (status) {
+                case 'pending': return 'Pendente';
+                case 'approved': return 'Aprovado';
+                case 'rejected': return 'Rejeitado';
+                default: return 'Desconhecido';
+            }
+        }
+
+        // Função para atualizar o status do usuário
+        function updateUserStatus(userId, newStatus) {
+            const userIndex = database.users.findIndex(u => u.id === userId);
+            if (userIndex !== -1) {
+                database.users[userIndex].status = newStatus;
+                saveUsersToLocalStorage();
+                loadUsersList();
+                showNotification(`Usuário ${database.users[userIndex].email} ${newStatus === 'approved' ? 'aprovado' : 'rejeitado'} com sucesso!`, 'success');
+            }
+        }
+
+        // Função para remover o usuário
+        function removeUser(userId) {
+            if (!confirm('Tem certeza que deseja remover este usuário? Esta ação é irreversível.')) {
+                return;
+            }
+            const initialLength = database.users.length;
+            database.users = database.users.filter(u => u.id !== userId);
+            if (database.users.length < initialLength) {
+                saveUsersToLocalStorage();
+                loadUsersList();
+                showNotification('Usuário removido com sucesso!', 'success');
+            } else {
+                showNotification('Erro: Usuário não encontrado para remoção.', 'error');
+            }
+        }
 
         // Inicialização do slider de depoimentos
         $(document).ready(function(){
