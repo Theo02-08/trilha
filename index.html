@@ -1149,6 +1149,182 @@
             from {top:-300px; opacity:0}
             to {top:0; opacity:1}
         }
+
+        /* Estilos para a página de cadastro */
+        .register-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-container .form-group {
+            position: relative;
+        }
+
+        .register-container .form-group input {
+            padding-right: 30px; /* Espaço para o ícone de feedback */
+        }
+
+        .register-container .form-group .feedback-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .register-container .form-group.valid input {
+            border-color: var(--success-color);
+        }
+
+        .register-container .form-group.invalid input {
+            border-color: var(--accent-color);
+        }
+
+        .register-container .form-group.valid .feedback-icon {
+            color: var(--success-color);
+        }
+
+        .register-container .form-group.invalid .feedback-icon {
+            color: var(--accent-color);
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            height: 8px;
+            background-color: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+
+        .password-strength-text {
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            color: #777;
+        }
+
+        .password-strength-bar.weak { background-color: var(--accent-color); }
+        .password-strength-bar.medium { background-color: var(--warning-color); }
+        .password-strength-bar.strong { background-color: var(--success-color); }
+
+        /* Estilos para a página de confirmação */
+        .confirmation-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background-color: var(--bg-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .confirmation-container .icon {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Estilos para o painel de aprovação de usuários */
+        .user-approval-list .user-item {
+            background-color: var(--light-color);
+            border: 1px solid #B2EBF2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .user-approval-list .user-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .user-approval-list .user-item p {
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+
+        .user-approval-list .user-item .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .user-approval-list .user-item .actions .btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
+        .user-approval-filters {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .user-approval-filters input,
+        .user-approval-filters select {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* Estilos para o gerenciamento de tópicos */
+        .topic-management-section {
+            margin-top: 2rem;
+        }
+
+        .topic-type-card {
+            background-color: var(--light-color);
+            border: 1px solid #B2EBF2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-type-card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .topic-type-card .options-list {
+            margin-top: 0.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .topic-type-card .options-list li {
+            list-style-type: disc;
+            color: var(--dark-color);
+        }
+
+        .topic-type-card .actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .topic-option-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-option-item input {
+            flex: 1;
+            margin-right: 0.5rem;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
@@ -1351,6 +1527,87 @@
             </div>
         </section>
 
+        <!-- Página de Cadastro (Nova) -->
+        <section id="register-page" class="page-section">
+            <div class="register-container">
+                <div class="login-header">
+                    <i class="fas fa-user-plus" style="font-size: 3rem; color: var(--secondary-color); margin-bottom: 1rem;"></i>
+                    <h2>Crie sua conta Integra+Edu</h2>
+                    <p>Preencha o formulário abaixo para se cadastrar</p>
+                </div>
+
+                <form id="fullRegisterForm">
+                    <div class="form-group" id="fg-fullname">
+                        <label for="register-fullname"><i class="fas fa-user"></i> Nome Completo</label>
+                        <input type="text" id="register-fullname" required placeholder="Seu nome completo">
+                        <span class="feedback-icon"></span>
+                    </div>
+
+                    <div class="form-group" id="fg-email-register">
+                        <label for="register-email-full"><i class="fas fa-envelope"></i> E-mail</label>
+                        <input type="email" id="register-email-full" required placeholder="seu@email.com">
+                        <span class="feedback-icon"></span>
+                    </div>
+
+                    <!-- Campo de telefone removido conforme solicitado -->
+                    <!-- <div class="form-group" id="fg-phone">
+                        <label for="register-phone"><i class="fas fa-phone"></i> Telefone</label>
+                        <input type="text" id="register-phone" placeholder="(XX) XXXXX-XXXX" maxlength="15">
+                        <span class="feedback-icon"></span>
+                    </div> -->
+
+                    <div class="form-group" id="fg-dob">
+                        <label for="register-dob"><i class="fas fa-calendar-alt"></i> Data de Nascimento</label>
+                        <input type="date" id="register-dob">
+                        <span class="feedback-icon"></span>
+                    </div>
+
+                    <div class="form-group" id="fg-password-full">
+                        <label for="register-password-full"><i class="fas fa-lock"></i> Senha</label>
+                        <input type="password" id="register-password-full" required placeholder="Crie sua senha">
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="password-strength-bar"></div>
+                        </div>
+                        <p class="password-strength-text" id="password-strength-text"></p>
+                        <span class="feedback-icon"></span>
+                    </div>
+
+                    <div class="form-group" id="fg-confirm-password-full">
+                        <label for="register-confirm-password-full"><i class="fas fa-lock"></i> Confirmar Senha</label>
+                        <input type="password" id="register-confirm-password-full" required placeholder="Confirme sua senha">
+                        <span class="feedback-icon"></span>
+                    </div>
+
+                    <div class="form-group" id="fg-terms">
+                        <input type="checkbox" id="register-terms" required>
+                        <label for="register-terms" style="display: inline; margin-left: 0.5rem;">
+                            Li e aceito os <a href="#" style="color: var(--secondary-color); text-decoration: none;">Termos de Uso</a>
+                        </label>
+                        <span class="feedback-icon" style="position: static; margin-left: 10px;"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-user-plus"></i> Cadastrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Página de Confirmação de Cadastro (Nova) -->
+        <section id="registration-confirmation-page" class="page-section">
+            <div class="confirmation-container">
+                <i class="fas fa-check-circle icon"></i>
+                <h2>Cadastro Recebido!</h2>
+                <p>Obrigado por se cadastrar no Integra+Edu. Sua solicitação foi recebida e está aguardando aprovação de nossa equipe.</p>
+                <p>Você será notificado por e-mail assim que seu cadastro for analisado.</p>
+                <button id="back-to-home-from-confirmation" class="btn-primary" style="margin-top: 2rem;">
+                    <i class="fas fa-home"></i> Voltar para a Página Inicial
+                </button>
+            </div>
+        </section>
+
         <!-- Painel do Usuário -->
         <section id="user-dashboard" class="page-section">
             <div class="dashboard">
@@ -1426,8 +1683,9 @@
         <!-- Página de Questões de Matemática -->
         <section id="math-questions" class="page-section">
             <div class="exam-container">
-                <div class="topic-filter">
-                    <h3><i class="fas fa-filter"></i> Filtrar por Tópico</h3>
+                <div class="topic-filter" id="math-filters-container">
+                    <h3><i class="fas fa-filter"></i> Filtrar por:</h3>
+                    <!-- Filtros dinâmicos serão inseridos aqui pelo JavaScript -->
                     <select id="math-topic-filter">
                         <option value="all">Todos os tópicos</option>
                         <option value="Álgebra">Álgebra</option>
@@ -1462,8 +1720,9 @@
         <!-- Página de Questões de Biologia -->
         <section id="bio-questions" class="page-section">
             <div class="exam-container">
-                <div class="topic-filter">
-                    <h3><i class="fas fa-filter"></i> Filtrar por Tópico</h3>
+                <div class="topic-filter" id="bio-filters-container">
+                    <h3><i class="fas fa-filter"></i> Filtrar por:</h3>
+                    <!-- Filtros dinâmicos serão inseridos aqui pelo JavaScript -->
                     <select id="bio-topic-filter">
                         <option value="all">Todos os tópicos</option>
                         <option value="Citologia">Citologia</option>
@@ -1569,6 +1828,14 @@
                         <p>Gerenciar cadastros pendentes</p>
                     </a>
 
+                    <a href="#" class="admin-card" id="manage-topics">
+                        <div class="card-icon">
+                            <i class="fas fa-list-alt"></i>
+                        </div>
+                        <h3>Gerenciar Tópicos</h3>
+                        <p>Criar e editar filtros</p>
+                    </a>
+
                     <a href="#" class="admin-card" id="view-stats">
                         <div class="card-icon">
                             <i class="fas fa-chart-pie"></i>
@@ -1588,7 +1855,7 @@
                 <form id="addExamForm">
                     <div class="form-row">
                         <label for="exam-year"><i class="fas fa-calendar-alt"></i> Ano da Prova:</label>
-                        <input type="number" id="exam-year" min="2019" max="2023" required>
+                        <input type="number" id="exam-year" min="2019" max="2050" required> <!-- Max ano aumentado -->
                     </div>
                     
                     <div class="form-row">
@@ -1792,6 +2059,76 @@
     </div>
 </section>
 
+<!-- Painel de Aprovação de Usuários (Nova) -->
+<section id="admin-approval-page" class="page-section">
+    <div class="admin-panel">
+        <h2><i class="fas fa-user-check"></i> Aprovação de Cadastros</h2>
+        <p>Gerencie as solicitações de cadastro pendentes.</p>
+
+        <div class="user-approval-filters">
+            <input type="text" id="user-search" placeholder="Buscar por nome ou e-mail">
+            <select id="user-status-filter">
+                <option value="all">Todos os Status</option>
+                <option value="pending">Pendentes</option>
+                <option value="approved">Aprovados</option>
+                <option value="rejected">Rejeitados</option>
+            </select>
+        </div>
+
+        <div id="pending-users-list" class="user-approval-list">
+            <!-- Usuários pendentes serão carregados aqui -->
+            <p style="text-align: center; color: #777;">Nenhum cadastro pendente no momento.</p>
+        </div>
+    </div>
+</section>
+
+<!-- NOVO: Página de Gerenciamento de Tópicos (Admin) -->
+<section id="manage-topics-page" class="page-section">
+    <div class="admin-panel">
+        <h2><i class="fas fa-list-alt"></i> Gerenciar Tópicos e Filtros</h2>
+        <p>Crie e gerencie os tipos de tópicos/filtros e suas opções para uso em questões.</p>
+
+        <div class="form-row">
+            <label for="new-topic-type-name"><i class="fas fa-plus-circle"></i> Novo Tipo de Tópico:</label>
+            <input type="text" id="new-topic-type-name" placeholder="Ex: Ano de Prova, Área de Conhecimento">
+            <button id="add-topic-type-btn" class="btn-primary" style="margin-top: 0.5rem;">
+                <i class="fas fa-plus"></i> Adicionar Tipo
+            </button>
+        </div>
+
+        <div id="topic-types-list" class="topic-management-section">
+            <h3>Tipos de Tópicos Existentes:</h3>
+            <!-- Lista de tipos de tópicos será renderizada aqui -->
+            <p style="text-align: center; color: #777;">Nenhum tipo de tópico criado ainda.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Modal de Edição de Tópico -->
+<div id="topic-modal" class="modal" style="display:none;">
+    <div class="admin-panel" style="max-width:600px;">
+        <h2 id="topic-modal-title"><i class="fas fa-edit"></i> Editar Tópico</h2>
+        <form id="topic-form">
+            <input type="hidden" id="modal-topic-type-id">
+            <div class="form-row">
+                <label for="modal-topic-type-name">Nome do Tipo de Tópico:</label>
+                <input type="text" id="modal-topic-type-name" required>
+            </div>
+            <div class="form-row">
+                <label>Opções:</label>
+                <div id="modal-topic-options-container">
+                    <!-- Opções serão carregadas aqui -->
+                </div>
+                <button type="button" class="btn-secondary" id="modal-add-topic-option">+ Opção</button>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:1rem;">
+                <button type="button" class="btn-secondary" id="cancel-topic-btn">Cancelar</button>
+                <button type="submit" class="btn-primary">Salvar Tópico</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 </main>
 
     <!-- Rodapé -->
@@ -1838,6 +2175,7 @@
         const EXAMS_STORAGE_KEY = 'integraEduExams';
         const USER_STATS_PREFIX = 'integraEduUserStats_'; // Prefixo para as estatísticas de usuário
         const USERS_STORAGE_KEY = 'integraEduUsers'; // Nova chave para usuários
+        const TOPICS_STORAGE_KEY = 'integraEduTopics'; // Nova chave para tópicos dinâmicos
 
         // Função para carregar provas do localStorage
         function loadExamsFromLocalStorage() {
@@ -1862,8 +2200,8 @@
             }
             // Se não houver usuários salvos, retorna os usuários padrão
             return [
-                { id: 1, email: 'user@example.com', password: simpleHash('user123'), role: 'user', status: 'approved', registrationDate: '2023-01-01T10:00:00Z' },
-                { id: 2, email: 'admin@example.com', password: simpleHash('admin123'), role: 'admin', status: 'approved', registrationDate: '2023-01-01T10:00:00Z' }
+                { id: 1, email: 'user@example.com', password: simpleHash('user123'), role: 'user', status: 'approved', registrationDate: '2023-01-01T10:00:00Z', fullname: 'Usuário Teste', dob: '2000-01-01' },
+                { id: 2, email: 'admin@example.com', password: simpleHash('admin123'), role: 'admin', status: 'approved', registrationDate: '2023-01-01T10:00:00Z', fullname: 'Admin Teste', dob: '1990-01-01' }
             ];
         }
 
@@ -1872,9 +2210,29 @@
             localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(database.users));
         }
 
+        // NOVO: Funções para carregar e salvar tópicos dinâmicos
+        function loadTopicsFromLocalStorage() {
+            const storedTopics = localStorage.getItem(TOPICS_STORAGE_KEY);
+            if (storedTopics) {
+                return JSON.parse(storedTopics);
+            }
+            // Tópicos padrão
+            return [
+                { id: 'subject', name: 'Matéria', options: ['Matemática', 'Biologia'], isDefault: true },
+                { id: 'difficulty', name: 'Dificuldade', options: ['easy', 'medium', 'hard'], isDefault: true },
+                { id: 'examYear', name: 'Ano de Prova', options: ['2019', '2020', '2021', '2022', '2023'], isDefault: false },
+                { id: 'knowledgeArea', name: 'Área de Conhecimento', options: ['Álgebra', 'Geometria', 'Citologia', 'Genética'], isDefault: false }
+            ];
+        }
+
+        function saveTopicsToLocalStorage() {
+            localStorage.setItem(TOPICS_STORAGE_KEY, JSON.stringify(database.topics));
+        }
+
         const database = {
             users: loadUsersFromLocalStorage(), // Carrega usuários na inicialização
             exams: loadExamsFromLocalStorage(),
+            topics: loadTopicsFromLocalStorage(), // Carrega tópicos dinâmicos
             // userStats será carregado dinamicamente por usuário
             userStats: {} 
         };
@@ -1911,7 +2269,11 @@
             results: document.getElementById('results-page'),
             stats: document.getElementById('stats-page'),
             manageQuestions: document.getElementById('manage-questions-page'), // Adicionado
-            manageUsersPage: document.getElementById('manage-users-page') // NOVO
+            manageUsersPage: document.getElementById('manage-users-page'), // NOVO
+            register: document.getElementById('register-page'), // Nova página de cadastro
+            registrationConfirmation: document.getElementById('registration-confirmation-page'), // Nova página de confirmação
+            adminApproval: document.getElementById('admin-approval-page'), // Nova página de aprovação de usuários
+            manageTopics: document.getElementById('manage-topics-page') // Nova página de gerenciamento de tópicos
         };
 
         const authButton = document.getElementById('auth-button');
@@ -1930,10 +2292,11 @@
         const viewStatsBtn = document.getElementById('view-stats');
         const mathQuestionsContainer = document.getElementById('math-questions-container');
         const bioQuestionsContainer = document.getElementById('bio-questions-container');
-        const mathTopicFilter = document.getElementById('math-topic-filter');
-        const bioTopicFilter = document.getElementById('bio-topic-filter');
-        const mathDifficultyFilter = document.getElementById('math-difficulty-filter');
-        const bioDifficultyFilter = document.getElementById('bio-difficulty-filter');
+        // Removidos os filtros estáticos, serão gerados dinamicamente
+        // const mathTopicFilter = document.getElementById('math-topic-filter');
+        // const bioTopicFilter = document.getElementById('bio-topic-filter');
+        // const mathDifficultyFilter = document.getElementById('math-difficulty-filter');
+        // const bioDifficultyFilter = document.getElementById('bio-difficulty-filter');
         const mathShuffleBtn = document.getElementById('math-shuffle-btn');
         const bioShuffleBtn = document.getElementById('bio-shuffle-btn');
         const mathProgressBar = document.getElementById('math-progress-bar');
@@ -1970,6 +2333,38 @@
         const userFilterStatus = document.getElementById('user-filter-status');
         const usersListContainer = document.getElementById('users-list');
 
+        // Elementos do novo formulário de cadastro
+        const fullRegisterForm = document.getElementById('fullRegisterForm');
+        const registerFullname = document.getElementById('register-fullname');
+        const registerEmailFull = document.getElementById('register-email-full');
+        // const registerPhone = document.getElementById('register-phone'); // Removido
+        const registerDob = document.getElementById('register-dob');
+        const registerPasswordFull = document.getElementById('register-password-full');
+        const registerConfirmPasswordFull = document.getElementById('register-confirm-password-full');
+        const registerTerms = document.getElementById('register-terms');
+        const passwordStrengthBar = document.getElementById('password-strength-bar');
+        const passwordStrengthText = document.getElementById('password-strength-text');
+        const backToHomeFromConfirmationBtn = document.getElementById('back-to-home-from-confirmation');
+
+        // Elementos do painel de aprovação de usuários
+        const adminApprovalPage = document.getElementById('admin-approval-page');
+        const pendingUsersList = document.getElementById('pending-users-list');
+        const userSearchInput = document.getElementById('user-search');
+        const userStatusFilter = document.getElementById('user-status-filter');
+
+        // Elementos do gerenciamento de tópicos
+        const manageTopicsBtn = document.getElementById('manage-topics');
+        const newTopicTypeNameInput = document.getElementById('new-topic-type-name');
+        const addTopicTypeBtn = document.getElementById('add-topic-type-btn');
+        const topicTypesList = document.getElementById('topic-types-list');
+        const topicModal = document.getElementById('topic-modal');
+        const topicModalTitle = document.getElementById('topic-modal-title');
+        const modalTopicTypeId = document.getElementById('modal-topic-type-id');
+        const modalTopicTypeName = document.getElementById('modal-topic-type-name');
+        const modalTopicOptionsContainer = document.getElementById('modal-topic-options-container');
+        const modalAddTopicOptionBtn = document.getElementById('modal-add-topic-option');
+        const cancelTopicBtn = document.getElementById('cancel-topic-btn');
+        const topicForm = document.getElementById('topic-form');
 
         // Funções de navegação
         function showPage(page) {
@@ -1988,7 +2383,7 @@
             updateUI();
             
             // Mostrar/ocultar botão de voltar
-            if (page !== 'home' && page !== 'login') {
+            if (page !== 'home' && page !== 'login' && page !== 'register' && page !== 'registrationConfirmation') {
                 backButton.classList.add('active');
             } else {
                 backButton.classList.remove('active');
@@ -1997,10 +2392,12 @@
             // Ações específicas de cada página
             switch(page) {
                 case 'math':
+                    renderDynamicFilters('math');
                     loadMathQuestions();
                     startStudyTimer();
                     break;
                 case 'bio':
+                    renderDynamicFilters('bio');
                     loadBioQuestions();
                     startStudyTimer();
                     break;
@@ -2021,6 +2418,12 @@
                     break;
                 case 'manageUsersPage': // NOVO: Carregar lista de usuários
                     loadUsersList();
+                    break;
+                case 'adminApproval': // Carregar usuários para aprovação
+                    loadPendingUsers();
+                    break;
+                case 'manageTopics': // Carregar gerenciamento de tópicos
+                    loadTopicTypesList();
                     break;
                 default:
                     stopStudyTimer();
@@ -2081,6 +2484,8 @@
             saveExamsToLocalStorage(database.exams);
             // Salvar os usuários (incluindo status)
             saveUsersToLocalStorage();
+            // Salvar os tópicos dinâmicos
+            saveTopicsToLocalStorage();
         }
 
         function loadState() {
@@ -2208,15 +2613,28 @@
         // Funções para gerenciar questões
         function loadMathQuestions() {
             state.currentSubject = 'Matemática';
-            const selectedTopic = mathTopicFilter.value;
-            const selectedDifficulty = mathDifficultyFilter.value;
+            const filters = getSelectedFilters('math');
             
             let questions = [];
             database.exams.forEach(exam => {
                 if (exam.subject === 'Matemática') {
                     exam.questions.forEach(q => {
-                        if ((selectedTopic === 'all' || q.topic === selectedTopic) &&
-                            (selectedDifficulty === 'all' || q.difficulty === selectedDifficulty)) {
+                        let matchesAllFilters = true;
+                        for (const filterId in filters) {
+                            if (filters[filterId] !== 'all') {
+                                if (filterId === 'examYear' && q.examYear !== filters[filterId]) {
+                                    matchesAllFilters = false;
+                                    break;
+                                } else if (filterId === 'knowledgeArea' && q.topic !== filters[filterId]) {
+                                    matchesAllFilters = false;
+                                    break;
+                                } else if (filterId === 'difficulty' && q.difficulty !== filters[filterId]) {
+                                    matchesAllFilters = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (matchesAllFilters) {
                             questions.push({...q, examYear: exam.year});
                         }
                     });
@@ -2230,15 +2648,28 @@
 
         function loadBioQuestions() {
             state.currentSubject = 'Biologia';
-            const selectedTopic = bioTopicFilter.value;
-            const selectedDifficulty = bioDifficultyFilter.value;
+            const filters = getSelectedFilters('bio');
             
             let questions = [];
             database.exams.forEach(exam => {
                 if (exam.subject === 'Biologia') {
                     exam.questions.forEach(q => {
-                        if ((selectedTopic === 'all' || q.topic === selectedTopic) &&
-                            (selectedDifficulty === 'all' || q.difficulty === selectedDifficulty)) {
+                        let matchesAllFilters = true;
+                        for (const filterId in filters) {
+                            if (filters[filterId] !== 'all') {
+                                if (filterId === 'examYear' && q.examYear !== filters[filterId]) {
+                                    matchesAllFilters = false;
+                                    break;
+                                } else if (filterId === 'knowledgeArea' && q.topic !== filters[filterId]) {
+                                    matchesAllFilters = false;
+                                    break;
+                                } else if (filterId === 'difficulty' && q.difficulty !== filters[filterId]) {
+                                    matchesAllFilters = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if (matchesAllFilters) {
                             questions.push({...q, examYear: exam.year});
                         }
                     });
@@ -2248,6 +2679,17 @@
             state.currentQuestions = shuffleArray(questions);
             state.currentQuestionIndex = 0;
             renderQuestions();
+        }
+
+        function getSelectedFilters(subjectPrefix) {
+            const filters = {};
+            database.topics.forEach(topicType => {
+                const selectElement = document.getElementById(`${subjectPrefix}-${topicType.id}-filter`);
+                if (selectElement) {
+                    filters[topicType.id] = selectElement.value;
+                }
+            });
+            return filters;
         }
 
         function renderQuestions() {
@@ -2261,7 +2703,7 @@
                     <div class="question-card" style="text-align: center;">
                         <h3>Nenhuma questão encontrada</h3>
                         <p>Não há questões disponíveis com os filtros selecionados.</p>
-                        <button class="btn-primary" onclick="resetFilters('${state.currentSubject}')">
+                        <button class="btn-primary" onclick="resetFilters('${state.currentSubject === 'Matemática' ? 'math' : 'bio'}')">
                             <i class="fas fa-undo"></i> Limpar Filtros
                         </button>
                     </div>
@@ -2352,14 +2794,16 @@
             nextBtn.addEventListener('click', nextQuestion);
         }
 
-        function resetFilters(subject) {
-            if (subject === 'Matemática') {
-                mathTopicFilter.value = 'all';
-                mathDifficultyFilter.value = 'all';
+        function resetFilters(subjectPrefix) {
+            database.topics.forEach(topicType => {
+                const selectElement = document.getElementById(`${subjectPrefix}-${topicType.id}-filter`);
+                if (selectElement) {
+                    selectElement.value = 'all';
+                }
+            });
+            if (subjectPrefix === 'math') {
                 loadMathQuestions();
             } else {
-                bioTopicFilter.value = 'all';
-                bioDifficultyFilter.value = 'all';
                 loadBioQuestions();
             }
         }
@@ -2685,7 +3129,8 @@
                 correctAnswer,
                 topic,
                 difficulty,
-                explanation
+                explanation,
+                examYear: year // Adiciona o ano da prova à questão
             });
             
             // Salvar as provas atualizadas no localStorage
@@ -2792,7 +3237,7 @@
         });
 
         ctaButton.addEventListener('click', function() {
-            showPage('login');
+            showPage('register'); // Redireciona para a nova página de cadastro
         });
 
         adminLoginToggle.addEventListener('click', function(e) {
@@ -2818,19 +3263,15 @@
         // NOVO: Event Listeners para alternar formulários de login/cadastro
         showRegisterFormBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            loginContainer.style.display = 'none';
-            registerContainer.style.display = 'block';
-            loginSwitchText.style.display = 'none'; // Esconde o texto de alternar
+            showPage('register'); // Redireciona para a nova página de cadastro
         });
 
         showLoginFormBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            loginContainer.style.display = 'block';
-            registerContainer.style.display = 'none';
-            loginSwitchText.style.display = 'block'; // Mostra o texto de alternar
+            showPage('login'); // Volta para a página de login
         });
 
-        // NOVO: Lógica de registro
+        // NOVO: Lógica de registro (formulário simplificado)
         registerForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('register-email').value;
@@ -2860,7 +3301,9 @@
                 password: hashedPassword,
                 role: 'user', // Novos usuários são sempre 'user'
                 status: 'pending', // Status inicial: pendente de aprovação
-                registrationDate: new Date().toISOString()
+                registrationDate: new Date().toISOString(),
+                fullname: 'Novo Usuário', // Placeholder
+                dob: '2000-01-01' // Placeholder
             };
 
             database.users.push(newUser);
@@ -2869,9 +3312,7 @@
 
             // Limpar formulário e voltar para o login
             registerForm.reset();
-            loginContainer.style.display = 'block';
-            registerContainer.style.display = 'none';
-            loginSwitchText.style.display = 'block';
+            showPage('login');
         });
 
 
@@ -2914,7 +3355,13 @@
         // NOVO: Event Listener para o card de Aprovar Usuários
         manageUsersApprovalBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            showPage('manageUsersPage');
+            showPage('adminApproval'); // Redireciona para a nova página de aprovação
+        });
+
+        // NOVO: Event Listener para o card de Gerenciar Tópicos
+        manageTopicsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('manageTopics');
         });
 
         viewStatsBtn.addEventListener('click', function(e) {
@@ -2922,10 +3369,11 @@
             showPage('stats');
         });
 
-        mathTopicFilter.addEventListener('change', loadMathQuestions);
-        bioTopicFilter.addEventListener('change', loadBioQuestions);
-        mathDifficultyFilter.addEventListener('change', loadMathQuestions);
-        bioDifficultyFilter.addEventListener('change', loadBioQuestions);
+        // Removidos os event listeners estáticos para filtros
+        // mathTopicFilter.addEventListener('change', loadMathQuestions);
+        // bioTopicFilter.addEventListener('change', loadBioQuestions);
+        // mathDifficultyFilter.addEventListener('change', loadMathQuestions);
+        // bioDifficultyFilter.addEventListener('change', loadBioQuestions);
 
         mathShuffleBtn.addEventListener('click', function() {
             state.currentQuestions = shuffleArray(state.currentQuestions);
@@ -2987,8 +3435,8 @@
                 const userItem = document.createElement('div');
                 userItem.className = 'question-item'; // Reutilizando o estilo de question-item
                 userItem.innerHTML = `
-                    <h4>${user.email}</h4>
-                    <p>Função: ${user.role} | Status: <span style="font-weight: bold; color: ${getUserStatusColor(user.status)};">${getUserStatusLabel(user.status)}</span></p>
+                    <h4>${user.fullname || user.email}</h4>
+                    <p>E-mail: ${user.email} | Função: ${user.role} | Status: <span style="font-weight: bold; color: ${getUserStatusColor(user.status)};">${getUserStatusLabel(user.status)}</span></p>
                     <p>Data de Cadastro: ${new Date(user.registrationDate).toLocaleString()}</p>
                     <p>Questões Respondidas: ${totalQuestions} | Acertos: ${correctAnswers}</p>
                     <div class="actions">
@@ -3053,7 +3501,8 @@
             if (userIndex !== -1) {
                 database.users[userIndex].status = newStatus;
                 saveUsersToLocalStorage();
-                loadUsersList();
+                loadUsersList(); // Atualiza a lista no painel de gerenciamento
+                loadPendingUsers(); // Atualiza a lista no painel de aprovação
                 showNotification(`Usuário ${database.users[userIndex].email} ${newStatus === 'approved' ? 'aprovado' : 'rejeitado'} com sucesso!`, 'success');
             }
         }
@@ -3067,11 +3516,500 @@
             database.users = database.users.filter(u => u.id !== userId);
             if (database.users.length < initialLength) {
                 saveUsersToLocalStorage();
-                loadUsersList();
+                loadUsersList(); // Atualiza a lista no painel de gerenciamento
+                loadPendingUsers(); // Atualiza a lista no painel de aprovação
                 showNotification('Usuário removido com sucesso!', 'success');
             } else {
                 showNotification('Erro: Usuário não encontrado para remoção.', 'error');
             }
+        }
+
+        // ===========================================================
+        // NOVO: Lógica para o Formulário de Cadastro Completo
+        // ===========================================================
+
+        // Validação de campos
+        function validateField(inputElement, validationFn) {
+            const formGroup = inputElement.closest('.form-group');
+            const feedbackIcon = formGroup.querySelector('.feedback-icon');
+            
+            if (validationFn(inputElement.value)) {
+                formGroup.classList.remove('invalid');
+                formGroup.classList.add('valid');
+                feedbackIcon.className = 'feedback-icon fas fa-check-circle';
+                return true;
+            } else {
+                formGroup.classList.remove('valid');
+                formGroup.classList.add('invalid');
+                feedbackIcon.className = 'feedback-icon fas fa-times-circle';
+                return false;
+            }
+        }
+
+        // Validações específicas
+        const validateFullname = (name) => name.trim().length >= 3;
+        const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        // const validatePhone = (phone) => phone.replace(/\D/g, '').length === 11; // (XX) XXXXX-XXXX) // Removido
+        const validateDob = (dob) => {
+            if (!dob) return false;
+            const birthDate = new Date(dob);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age >= 18; // Requisito: maior de 18 anos
+        };
+        const validateTerms = (isChecked) => isChecked;
+
+        // Validação de senha e força
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            let feedback = '';
+
+            if (password.length >= 8) {
+                strength += 1;
+            }
+            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) {
+                strength += 1;
+            }
+            if (password.match(/\d/)) {
+                strength += 1;
+            }
+            if (password.match(/[^a-zA-Z0-9]/)) {
+                strength += 1;
+            }
+
+            let width = (strength / 4) * 100;
+            passwordStrengthBar.style.width = `${width}%`;
+            passwordStrengthBar.className = 'password-strength-bar';
+
+            if (strength === 0) {
+                feedback = 'Muito fraca';
+                passwordStrengthBar.classList.add('weak');
+            } else if (strength === 1) {
+                feedback = 'Fraca';
+                passwordStrengthBar.classList.add('weak');
+            } else if (strength === 2) {
+                feedback = 'Média';
+                passwordStrengthBar.classList.add('medium');
+            } else if (strength === 3) {
+                feedback = 'Boa';
+                passwordStrengthBar.classList.add('strong');
+            } else if (strength === 4) {
+                feedback = 'Excelente';
+                passwordStrengthBar.classList.add('strong');
+            }
+            passwordStrengthText.textContent = feedback;
+            return strength >= 3; // Considera forte o suficiente se tiver 3 ou 4 pontos
+        }
+
+        const validatePasswordMatch = () => {
+            const password = registerPasswordFull.value;
+            const confirmPassword = registerConfirmPasswordFull.value;
+            const formGroup = registerConfirmPasswordFull.closest('.form-group');
+            const feedbackIcon = formGroup.querySelector('.feedback-icon');
+
+            if (password === confirmPassword && password.length > 0) {
+                formGroup.classList.remove('invalid');
+                formGroup.classList.add('valid');
+                feedbackIcon.className = 'feedback-icon fas fa-check-circle';
+                return true;
+            } else {
+                formGroup.classList.remove('valid');
+                formGroup.classList.add('invalid');
+                feedbackIcon.className = 'feedback-icon fas fa-times-circle';
+                return false;
+            }
+        };
+
+        // Máscara de telefone (removida)
+        // function maskPhone(event) {
+        //     let value = event.target.value.replace(/\D/g, '');
+        //     value = value.replace(/^(\d{2})(\d)/g, '($1) $2');
+        //     value = value.replace(/(\d)(\d{4})$/, '$1-$2');
+        //     event.target.value = value;
+        // }
+
+        // Event Listeners para validação em tempo real
+        registerFullname.addEventListener('input', () => validateField(registerFullname, validateFullname));
+        registerEmailFull.addEventListener('input', () => validateField(registerEmailFull, validateEmail));
+        // registerPhone.addEventListener('input', (e) => { // Removido
+        //     maskPhone(e);
+        //     validateField(registerPhone, validatePhone);
+        // });
+        registerDob.addEventListener('change', () => validateField(registerDob, validateDob));
+        registerPasswordFull.addEventListener('input', () => {
+            checkPasswordStrength(registerPasswordFull.value);
+            validatePasswordMatch(); // Verifica a correspondência da senha ao digitar
+        });
+        registerConfirmPasswordFull.addEventListener('input', validatePasswordMatch);
+        registerTerms.addEventListener('change', () => {
+            const formGroup = registerTerms.closest('.form-group');
+            const feedbackIcon = formGroup.querySelector('.feedback-icon');
+            if (validateTerms(registerTerms.checked)) {
+                formGroup.classList.remove('invalid');
+                formGroup.classList.add('valid');
+                feedbackIcon.className = 'feedback-icon fas fa-check-circle';
+            } else {
+                formGroup.classList.remove('valid');
+                formGroup.classList.add('invalid');
+                feedbackIcon.className = 'feedback-icon fas fa-times-circle';
+            }
+        });
+
+        // Submissão do formulário de cadastro completo
+        fullRegisterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validação final de todos os campos
+            const isFullnameValid = validateField(registerFullname, validateFullname);
+            const isEmailValid = validateField(registerEmailFull, validateEmail);
+            // const isPhoneValid = validateField(registerPhone, validatePhone); // Removido
+            const isDobValid = validateField(registerDob, validateDob);
+            const isPasswordStrong = checkPasswordStrength(registerPasswordFull.value);
+            const isPasswordMatch = validatePasswordMatch();
+            const isTermsAccepted = validateField(registerTerms, validateTerms);
+
+            if (!isFullnameValid || !isEmailValid || !isDobValid || !isPasswordStrong || !isPasswordMatch || !isTermsAccepted) { // !isPhoneValid removido
+                showNotification('Por favor, preencha todos os campos corretamente.', 'error');
+                return;
+            }
+
+            // Verificar se o email já existe
+            if (database.users.some(u => u.email === registerEmailFull.value)) {
+                showNotification('Este e-mail já está cadastrado!', 'error');
+                return;
+            }
+
+            const newUser = {
+                id: database.users.length > 0 ? Math.max(...database.users.map(u => u.id)) + 1 : 1,
+                fullname: registerFullname.value,
+                email: registerEmailFull.value,
+                // phone: registerPhone.value, // Removido
+                dob: registerDob.value,
+                password: simpleHash(registerPasswordFull.value), // Hash da senha
+                role: 'user',
+                status: 'pending', // Status inicial: pendente de aprovação
+                registrationDate: new Date().toISOString()
+            };
+
+            database.users.push(newUser);
+            saveUsersToLocalStorage();
+            
+            fullRegisterForm.reset(); // Limpa o formulário
+            // Limpa os feedbacks visuais
+            document.querySelectorAll('.form-group').forEach(fg => {
+                fg.classList.remove('valid', 'invalid');
+                fg.querySelector('.feedback-icon').className = 'feedback-icon';
+            });
+            passwordStrengthBar.style.width = '0%';
+            passwordStrengthText.textContent = '';
+
+            showPage('registrationConfirmation'); // Redireciona para a página de confirmação
+        });
+
+        backToHomeFromConfirmationBtn.addEventListener('click', () => {
+            showPage('home');
+        });
+
+        // ===========================================================
+        // NOVO: Lógica para o Painel de Aprovação de Usuários (Admin)
+        // ===========================================================
+
+        function loadPendingUsers() {
+            pendingUsersList.innerHTML = '';
+            const searchTerm = userSearchInput.value.toLowerCase();
+            const filterStatus = userStatusFilter.value;
+
+            const filteredUsers = database.users.filter(user => {
+                const matchesSearch = (user.fullname && user.fullname.toLowerCase().includes(searchTerm)) || user.email.toLowerCase().includes(searchTerm);
+                const matchesStatus = filterStatus === 'all' || user.status === filterStatus;
+                return matchesSearch && matchesStatus;
+            });
+
+            if (filteredUsers.length === 0) {
+                pendingUsersList.innerHTML = '<p style="text-align: center; color: #777;">Nenhum cadastro encontrado com os filtros aplicados.</p>';
+                return;
+            }
+
+            filteredUsers.forEach(user => {
+                const userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `
+                    <h4>${user.fullname || user.email} (${user.email})</h4>
+                    <p>Data Nasc.: ${user.dob || 'Não informada'}</p>
+                    <p>Status: <span style="font-weight: bold; color: ${getUserStatusColor(user.status)};">${getUserStatusLabel(user.status)}</span></p>
+                    <p>Cadastrado em: ${new Date(user.registrationDate).toLocaleString()}</p>
+                    <div class="actions">
+                        ${user.status === 'pending' ? `
+                            <button class="btn btn-success approve-user-btn" data-id="${user.id}"><i class="fas fa-check"></i> Aprovar</button>
+                            <button class="btn btn-logout reject-user-btn" data-id="${user.id}"><i class="fas fa-times"></i> Rejeitar</button>
+                        ` : ''}
+                        ${user.status !== 'pending' && user.role !== 'admin' ? `
+                            <button class="btn btn-secondary view-user-details" data-id="${user.id}"><i class="fas fa-eye"></i> Detalhes</button>
+                            <button class="btn btn-logout remove-user-btn" data-id="${user.id}"><i class="fas fa-trash-alt"></i> Remover</button>
+                        ` : ''}
+                    </div>
+                `;
+                pendingUsersList.appendChild(userItem);
+            });
+
+            // Adicionar event listeners para os botões de ação
+            document.querySelectorAll('.approve-user-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    updateUserStatus(userId, 'approved');
+                    showNotification(`Usuário ${database.users.find(u => u.id === userId).email} aprovado!`, 'success');
+                });
+            });
+
+            document.querySelectorAll('.reject-user-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    updateUserStatus(userId, 'rejected');
+                    showNotification(`Usuário ${database.users.find(u => u.id === userId).email} rejeitado!`, 'error');
+                });
+            });
+
+            document.querySelectorAll('.remove-user-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    removeUser(userId);
+                });
+            });
+
+            document.querySelectorAll('.view-user-details').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const userId = parseInt(this.getAttribute('data-id'));
+                    // Implementar modal ou redirecionamento para detalhes do usuário
+                    showNotification(`Detalhes do usuário ${userId} (funcionalidade em desenvolvimento)`, 'info');
+                });
+            });
+        }
+
+        // Event listeners para filtros e busca no painel de aprovação
+        userSearchInput.addEventListener('input', loadPendingUsers);
+        userStatusFilter.addEventListener('change', loadPendingUsers);
+
+        // ===========================================================
+        // NOVO: Lógica para Gerenciamento de Tópicos e Filtros (Admin)
+        // ===========================================================
+
+        function loadTopicTypesList() {
+            topicTypesList.innerHTML = '';
+            const defaultTopics = ['subject', 'difficulty']; // Tópicos que não podem ser excluídos
+
+            if (database.topics.length === 0) {
+                topicTypesList.innerHTML = '<p style="text-align: center; color: #777;">Nenhum tipo de tópico criado ainda.</p>';
+                return;
+            }
+
+            database.topics.forEach(topicType => {
+                const topicTypeCard = document.createElement('div');
+                topicTypeCard.className = 'topic-type-card';
+                topicTypeCard.innerHTML = `
+                    <h4>${topicType.name} (${topicType.id})</h4>
+                    <p>Opções:</p>
+                    <ul class="options-list">
+                        ${topicType.options.map(option => `<li>${option}</li>`).join('')}
+                    </ul>
+                    <div class="actions">
+                        <button class="btn btn-secondary edit-topic-type" data-id="${topicType.id}"><i class="fas fa-edit"></i> Editar</button>
+                        ${!topicType.isDefault ? `<button class="btn btn-logout delete-topic-type" data-id="${topicType.id}"><i class="fas fa-trash-alt"></i> Excluir</button>` : ''}
+                    </div>
+                `;
+                topicTypesList.appendChild(topicTypeCard);
+            });
+
+            document.querySelectorAll('.edit-topic-type').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const topicTypeId = this.getAttribute('data-id');
+                    openTopicModal(topicTypeId);
+                });
+            });
+
+            document.querySelectorAll('.delete-topic-type').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const topicTypeId = this.getAttribute('data-id');
+                    deleteTopicType(topicTypeId);
+                });
+            });
+        }
+
+        addTopicTypeBtn.addEventListener('click', function() {
+            const newTypeName = newTopicTypeNameInput.value.trim();
+            if (!newTypeName) {
+                showNotification('O nome do tipo de tópico não pode ser vazio.', 'error');
+                return;
+            }
+
+            const newTypeId = newTypeName.toLowerCase().replace(/\s/g, '');
+            if (database.topics.some(t => t.id === newTypeId)) {
+                showNotification('Já existe um tipo de tópico com este nome.', 'error');
+                return;
+            }
+
+            database.topics.push({
+                id: newTypeId,
+                name: newTypeName,
+                options: [],
+                isDefault: false
+            });
+            saveTopicsToLocalStorage();
+            loadTopicTypesList();
+            newTopicTypeNameInput.value = '';
+            showNotification('Tipo de tópico adicionado com sucesso!', 'success');
+        });
+
+        function deleteTopicType(topicTypeId) {
+            if (!confirm('Tem certeza que deseja excluir este tipo de tópico e todas as suas opções?')) {
+                return;
+            }
+            database.topics = database.topics.filter(t => t.id !== topicTypeId);
+            saveTopicsToLocalStorage();
+            loadTopicTypesList();
+            showNotification('Tipo de tópico excluído com sucesso!', 'success');
+        }
+
+        function openTopicModal(topicTypeId) {
+            const topicType = database.topics.find(t => t.id === topicTypeId);
+            if (!topicType) return;
+
+            topicModalTitle.innerHTML = `<i class="fas fa-edit"></i> Editar Tópico: ${topicType.name}`;
+            modalTopicTypeId.value = topicType.id;
+            modalTopicTypeName.value = topicType.name;
+            modalTopicTypeName.disabled = topicType.isDefault; // Não permite editar nome de tópicos padrão
+
+            modalTopicOptionsContainer.innerHTML = '';
+            topicType.options.forEach(option => {
+                const optionItem = document.createElement('div');
+                optionItem.className = 'topic-option-item';
+                optionItem.innerHTML = `
+                    <input type="text" value="${option}" required ${topicType.isDefault ? 'disabled' : ''}>
+                    ${!topicType.isDefault ? '<span class="remove-option">×</span>' : ''}
+                `;
+                modalTopicOptionsContainer.appendChild(optionItem);
+            });
+
+            modalAddTopicOptionBtn.style.display = topicType.isDefault ? 'none' : 'inline-flex';
+            setupModalTopicOptionListeners(topicType.isDefault);
+            topicModal.style.display = 'block';
+        }
+
+        function setupModalTopicOptionListeners(isDefaultTopic) {
+            document.querySelectorAll('#modal-topic-options-container .remove-option').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (document.querySelectorAll('#modal-topic-options-container .topic-option-item').length > 1) {
+                        this.parentElement.remove();
+                    } else {
+                        showNotification('Um tipo de tópico deve ter pelo menos uma opção.', 'error');
+                    }
+                });
+            });
+
+            modalAddTopicOptionBtn.onclick = function() {
+                const newOptionItem = document.createElement('div');
+                newOptionItem.className = 'topic-option-item';
+                newOptionItem.innerHTML = `
+                    <input type="text" placeholder="Nova opção" required>
+                    <span class="remove-option">×</span>
+                `;
+                modalTopicOptionsContainer.appendChild(newOptionItem);
+                newOptionItem.querySelector('.remove-option').addEventListener('click', function() {
+                    if (document.querySelectorAll('#modal-topic-options-container .topic-option-item').length > 1) {
+                        this.parentElement.remove();
+                    } else {
+                        showNotification('Um tipo de tópico deve ter pelo menos uma opção.', 'error');
+                    }
+                });
+            };
+        }
+
+        topicForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const topicTypeId = modalTopicTypeId.value;
+            const topicTypeName = modalTopicTypeName.value.trim();
+            const topicType = database.topics.find(t => t.id === topicTypeId);
+
+            if (!topicType) return;
+
+            if (!topicType.isDefault && !topicTypeName) {
+                showNotification('O nome do tipo de tópico não pode ser vazio.', 'error');
+                return;
+            }
+
+            const newOptions = [];
+            let isValid = true;
+            document.querySelectorAll('#modal-topic-options-container input[type="text"]').forEach(input => {
+                const optionValue = input.value.trim();
+                if (!optionValue) {
+                    isValid = false;
+                    showNotification('As opções não podem ser vazias.', 'error');
+                    return;
+                }
+                newOptions.push(optionValue);
+            });
+
+            if (!isValid) return;
+            if (newOptions.length === 0) {
+                showNotification('Um tipo de tópico deve ter pelo menos uma opção.', 'error');
+                return;
+            }
+
+            if (!topicType.isDefault) {
+                topicType.name = topicTypeName;
+            }
+            topicType.options = newOptions;
+            
+            saveTopicsToLocalStorage();
+            loadTopicTypesList();
+            topicModal.style.display = 'none';
+            showNotification('Tópico salvo com sucesso!', 'success');
+        });
+
+        cancelTopicBtn.addEventListener('click', function() {
+            topicModal.style.display = 'none';
+        });
+
+        // ===========================================================
+        // NOVO: Geração Dinâmica de Filtros nas Páginas de Questões
+        // ===========================================================
+
+        function renderDynamicFilters(subjectPrefix) {
+            const filtersContainer = document.getElementById(`${subjectPrefix}-filters-container`);
+            // Limpa apenas os selects dinâmicos, mantendo o título e o botão de embaralhar
+            filtersContainer.querySelectorAll('select').forEach(select => select.remove());
+
+            database.topics.forEach(topicType => {
+                const selectElement = document.createElement('select');
+                selectElement.id = `${subjectPrefix}-${topicType.id}-filter`;
+
+                const defaultOption = document.createElement('option');
+                defaultOption.value = 'all';
+                defaultOption.textContent = `Todos os ${topicType.name.toLowerCase()}`;
+                selectElement.appendChild(defaultOption);
+
+                topicType.options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    selectElement.appendChild(optionElement);
+                });
+
+                // Adiciona o select antes do botão de embaralhar
+                filtersContainer.insertBefore(selectElement, filtersContainer.querySelector('.btn-primary'));
+                
+                // Adiciona o event listener para recarregar as questões ao mudar o filtro
+                selectElement.addEventListener('change', () => {
+                    if (subjectPrefix === 'math') {
+                        loadMathQuestions();
+                    } else {
+                        loadBioQuestions();
+                    }
+                });
+            });
         }
 
         // Inicialização do slider de depoimentos
@@ -3136,7 +4074,7 @@
           questionItem.className = 'question-item';
           questionItem.innerHTML = `
               <h4>${question.questionText}</h4>
-              <p>Matéria: ${question.subject} | Tópico: ${question.topic} | Dificuldade: ${question.difficulty}</p>
+              <p>Matéria: ${question.subject} | Tópico: ${question.topic} | Dificuldade: ${question.difficulty} | Ano: ${question.examYear || 'N/A'}</p>
               <div class="actions">
                 <button class="btn btn-secondary edit-question" data-id="${question.id}"><i class="fas fa-edit"></i> Editar</button>
                 <button class="btn btn-logout delete-question" data-id="${question.id}"><i class="fas fa-trash-alt"></i> Excluir</button>
@@ -3176,7 +4114,7 @@
               <span class="remove-option">×</span>
           </div>
       `;
-      updateCorrectAnswerOptions();
+      updateCorrectAnswerOptionsModal();
       setupModalOptionListeners();
       document.getElementById('question-modal').style.display = 'block';
   });
@@ -3206,7 +4144,7 @@
           modalOptionsContainer.appendChild(optionItem);
       });
 
-      updateCorrectAnswerOptions();
+      updateCorrectAnswerOptionsModal();
       // Define a resposta correta no select
       const correctAnswerIndex = question.options.indexOf(question.correctAnswer);
       document.getElementById('modal-correct-answer').value = correctAnswerIndex;
@@ -3241,11 +4179,11 @@
 
   // Função para configurar os ouvintes de eventos do modal
   function setupModalOptionListeners() {
-      document.querySelectorAll('.remove-option').forEach(btn => {
+      document.querySelectorAll('#modal-options-container .remove-option').forEach(btn => {
           btn.addEventListener('click', function() {
               if (document.querySelectorAll('#modal-options-container .option-item').length > 2) {
                   this.parentElement.remove();
-                  updateCorrectAnswerOptions();
+                  updateCorrectAnswerOptionsModal();
               } else {
                   showNotification('Uma questão deve ter pelo menos duas opções.', 'error');
               }
@@ -3253,7 +4191,7 @@
       });
       
       document.querySelectorAll('#modal-options-container input').forEach(input => {
-          input.addEventListener('input', updateCorrectAnswerOptions);
+          input.addEventListener('input', updateCorrectAnswerOptionsModal);
       });
       
       document.getElementById('modal-add-option').addEventListener('click', function() {
@@ -3269,19 +4207,19 @@
           newOption.querySelector('.remove-option').addEventListener('click', function() {
               if (document.querySelectorAll('#modal-options-container .option-item').length > 2) {
                   this.parentElement.remove();
-                  updateCorrectAnswerOptions();
+                  updateCorrectAnswerOptionsModal();
               } else {
                   showNotification('Uma questão deve ter pelo menos duas opções.', 'error');
               }
           });
           
-          newOption.querySelector('input').addEventListener('input', updateCorrectAnswerOptions);
-          updateCorrectAnswerOptions();
+          newOption.querySelector('input').addEventListener('input', updateCorrectAnswerOptionsModal);
+          updateCorrectAnswerOptionsModal();
       });
   }
 
   // Função para atualizar as opções de resposta correta no modal
-  function updateCorrectAnswerOptions() {
+  function updateCorrectAnswerOptionsModal() {
       const correctAnswerSelect = document.getElementById('modal-correct-answer');
       correctAnswerSelect.innerHTML = '';
       
@@ -3365,7 +4303,8 @@
               correctAnswer,
               topic,
               difficulty,
-              explanation
+              explanation,
+              examYear: targetExam.year // Adiciona o ano da prova à questão
           });
           saveExamsToLocalStorage(database.exams);
           showNotification('Pergunta adicionada com sucesso!', 'success');
