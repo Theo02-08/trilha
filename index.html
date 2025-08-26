@@ -1325,6 +1325,82 @@
             flex: 1;
             margin-right: 0.5rem;
         }
+
+        /* Estilos para Tópicos Fracos */
+        .weak-topics-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .weak-topic-card {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .weak-topic-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .weak-topic-card .accuracy-score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-color); /* Laranja para indicar fraqueza */
+        }
+
+        .weak-topic-card p {
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        .weak-topic-card .btn {
+            margin-top: 1rem;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        /* Estilos para Questões Salvas */
+        .bookmarked-questions-list {
+            margin-top: 1.5rem;
+        }
+
+        .bookmarked-question-item {
+            background-color: var(--light-color);
+            border: 1px solid #B2EBF2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .bookmarked-question-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .bookmarked-question-item p {
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+
+        .bookmarked-question-item .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .bookmarked-question-item .actions .btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
@@ -1785,6 +1861,28 @@
                     <button id="back-to-dashboard-btn" class="btn-primary" style="margin-top: 2rem;">
                         <i class="fas fa-home"></i> Voltar ao Painel
                     </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Tópicos Fracos -->
+        <section id="weak-topics-page" class="page-section">
+            <div class="dashboard">
+                <h2><i class="fas fa-heartbeat"></i> Seus Tópicos Fracos</h2>
+                <p>Foque nestes tópicos para melhorar seu desempenho geral.</p>
+                <div id="weak-topics-list" class="weak-topics-list">
+                    <p style="text-align: center; grid-column: 1 / -1; color: #777;">Nenhum tópico fraco identificado ainda. Continue praticando!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Página de Questões Salvas (Favoritos) -->
+        <section id="bookmarked-questions-page" class="page-section">
+            <div class="dashboard">
+                <h2><i class="fas fa-bookmark"></i> Suas Questões Salvas</h2>
+                <p>Revise as questões que você marcou como favoritas.</p>
+                <div id="bookmarked-questions-list" class="bookmarked-questions-list">
+                    <p style="text-align: center; color: #777;">Você ainda não salvou nenhuma questão.</p>
                 </div>
             </div>
         </section>
@@ -2273,7 +2371,9 @@
             register: document.getElementById('register-page'), // Nova página de cadastro
             registrationConfirmation: document.getElementById('registration-confirmation-page'), // Nova página de confirmação
             adminApproval: document.getElementById('admin-approval-page'), // Nova página de aprovação de usuários
-            manageTopics: document.getElementById('manage-topics-page') // Nova página de gerenciamento de tópicos
+            manageTopics: document.getElementById('manage-topics-page'), // Nova página de gerenciamento de tópicos
+            weakTopics: document.getElementById('weak-topics-page'), // Nova página de tópicos fracos
+            bookmarkedQuestions: document.getElementById('bookmarked-questions-page') // Nova página de questões salvas
         };
 
         const authButton = document.getElementById('auth-button');
@@ -2366,6 +2466,13 @@
         const cancelTopicBtn = document.getElementById('cancel-topic-btn');
         const topicForm = document.getElementById('topic-form');
 
+        // Elementos para Tópicos Fracos
+        const weakTopicsListContainer = document.getElementById('weak-topics-list');
+
+        // Elementos para Questões Salvas
+        const bookmarkedQuestionsListContainer = document.getElementById('bookmarked-questions-list');
+
+
         // Funções de navegação
         function showPage(page) {
             // Salvar a página atual no histórico antes de mudar
@@ -2424,6 +2531,12 @@
                     break;
                 case 'manageTopics': // Carregar gerenciamento de tópicos
                     loadTopicTypesList();
+                    break;
+                case 'weakTopics': // Carregar tópicos fracos
+                    renderWeakTopics();
+                    break;
+                case 'bookmarkedQuestions': // Carregar questões salvas
+                    loadBookmarkedQuestions();
                     break;
                 default:
                     stopStudyTimer();
@@ -2610,6 +2723,16 @@
             // localStorage.removeItem('appState'); // Pode ser mantido para outras configurações não relacionadas a userStats
         }
 
+        // Função para obter todas as questões do banco de dados
+        function getAllQuestions() {
+            return database.exams.flatMap(exam => exam.questions.map(q => ({
+                ...q,
+                examId: exam.id, // Adiciona o ID da prova para referência
+                examYear: exam.year, // Adiciona o ano da prova
+                subject: exam.subject // Adiciona a matéria da prova
+            })));
+        }
+
         // Funções para gerenciar questões
         function loadMathQuestions() {
             state.currentSubject = 'Matemática';
@@ -2622,7 +2745,7 @@
                         let matchesAllFilters = true;
                         for (const filterId in filters) {
                             if (filters[filterId] !== 'all') {
-                                if (filterId === 'examYear' && q.examYear !== filters[filterId]) {
+                                if (filterId === 'examYear' && q.examYear !== parseInt(filters[filterId])) { // Converte para int
                                     matchesAllFilters = false;
                                     break;
                                 } else if (filterId === 'knowledgeArea' && q.topic !== filters[filterId]) {
@@ -2657,7 +2780,7 @@
                         let matchesAllFilters = true;
                         for (const filterId in filters) {
                             if (filters[filterId] !== 'all') {
-                                if (filterId === 'examYear' && q.examYear !== filters[filterId]) {
+                                if (filterId === 'examYear' && q.examYear !== parseInt(filters[filterId])) { // Converte para int
                                     matchesAllFilters = false;
                                     break;
                                 } else if (filterId === 'knowledgeArea' && q.topic !== filters[filterId]) {
@@ -2819,11 +2942,11 @@
 
         // Funções para interação com questões
         function selectAnswer(questionId, optionIndex) {
-            const question = state.currentQuestions.find(q => q.id === questionId);
+            const question = getAllQuestions().find(q => q.id === questionId); // Busca a questão globalmente
             if (!question) return;
             
             // Salva a resposta do usuário
-            state.userAnswers[questionId] = optionIndex;
+            state.userAnswers[question.id] = optionIndex;
             // Atualiza as respostas do usuário nas estatísticas
             database.userStats[state.userId].userAnswers = state.userAnswers;
 
@@ -3121,7 +3244,7 @@
             
             // Adicionar a questão
             // Gerar um ID único para a nova questão
-            const newQuestionId = Math.max(...database.exams.flatMap(e => e.questions.map(q => q.id)), 0) + 1;
+            const newQuestionId = Math.max(...getAllQuestions().map(q => q.id), 0) + 1;
             exam.questions.push({
                 id: newQuestionId, // Usar um ID único
                 questionText,
@@ -3328,12 +3451,12 @@
 
         bookmarksCard.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Funcionalidade em desenvolvimento!', 'info');
+            showPage('bookmarkedQuestions'); // Redireciona para a página de questões salvas
         });
 
         weakTopicsCard.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Funcionalidade em desenvolvimento!', 'info');
+            showPage('weakTopics'); // Redireciona para a página de tópicos fracos
         });
 
         addExamBtn.addEventListener('click', function(e) {
@@ -3349,7 +3472,7 @@
 
         manageUsersBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Funcionalidade em desenvolvimento!', 'info');
+            showPage('manageUsersPage'); // Redireciona para a página de gerenciamento de usuários
         });
 
         // NOVO: Event Listener para o card de Aprovar Usuários
@@ -3644,7 +3767,11 @@
             checkPasswordStrength(registerPasswordFull.value);
             validatePasswordMatch(); // Verifica a correspondência da senha ao digitar
         });
-        registerConfirmPasswordFull.addEventListener('input', validatePasswordMatch);
+        registerConfirmPasswordFull.addEventListener('input', () => {
+            validatePasswordMatch();
+            // Garante que a validação da força da senha também seja atualizada se a senha principal mudar
+            checkPasswordStrength(registerPasswordFull.value);
+        });
         registerTerms.addEventListener('change', () => {
             const formGroup = registerTerms.closest('.form-group');
             const feedbackIcon = formGroup.querySelector('.feedback-icon');
@@ -3702,7 +3829,8 @@
             // Limpa os feedbacks visuais
             document.querySelectorAll('.form-group').forEach(fg => {
                 fg.classList.remove('valid', 'invalid');
-                fg.querySelector('.feedback-icon').className = 'feedback-icon';
+                const feedbackIcon = fg.querySelector('.feedback-icon');
+                if (feedbackIcon) feedbackIcon.className = 'feedback-icon';
             });
             passwordStrengthBar.style.width = '0%';
             passwordStrengthText.textContent = '';
@@ -3979,10 +4107,60 @@
 
         function renderDynamicFilters(subjectPrefix) {
             const filtersContainer = document.getElementById(`${subjectPrefix}-filters-container`);
-            // Limpa apenas os selects dinâmicos, mantendo o título e o botão de embaralhar
+            // Remove apenas os selects dinâmicos, mantendo o título e o botão de embaralhar
             filtersContainer.querySelectorAll('select').forEach(select => select.remove());
 
-            database.topics.forEach(topicType => {
+            // Adiciona os selects para os tópicos padrão (Matéria, Dificuldade)
+            const defaultSubjectTopic = database.topics.find(t => t.id === 'subject');
+            if (defaultSubjectTopic) {
+                const selectElement = document.createElement('select');
+                selectElement.id = `${subjectPrefix}-${defaultSubjectTopic.id}-filter`;
+                const defaultOption = document.createElement('option');
+                defaultOption.value = 'all';
+                defaultOption.textContent = `Todos os ${defaultSubjectTopic.name.toLowerCase()}`;
+                selectElement.appendChild(defaultOption);
+                defaultSubjectTopic.options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    selectElement.appendChild(optionElement);
+                });
+                filtersContainer.insertBefore(selectElement, filtersContainer.querySelector('.btn-primary'));
+                selectElement.addEventListener('change', () => {
+                    if (subjectPrefix === 'math') {
+                        loadMathQuestions();
+                    } else {
+                        loadBioQuestions();
+                    }
+                });
+            }
+
+            const defaultDifficultyTopic = database.topics.find(t => t.id === 'difficulty');
+            if (defaultDifficultyTopic) {
+                const selectElement = document.createElement('select');
+                selectElement.id = `${subjectPrefix}-${defaultDifficultyTopic.id}-filter`;
+                const defaultOption = document.createElement('option');
+                defaultOption.value = 'all';
+                defaultOption.textContent = `Todas as ${defaultDifficultyTopic.name.toLowerCase()}`;
+                selectElement.appendChild(defaultOption);
+                defaultDifficultyTopic.options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = getDifficultyLabel(option); // Usa a função para o label
+                    selectElement.appendChild(optionElement);
+                });
+                filtersContainer.insertBefore(selectElement, filtersContainer.querySelector('.btn-primary'));
+                selectElement.addEventListener('change', () => {
+                    if (subjectPrefix === 'math') {
+                        loadMathQuestions();
+                    } else {
+                        loadBioQuestions();
+                    }
+                });
+            }
+
+            // Adiciona os selects para os tópicos personalizados (não padrão)
+            database.topics.filter(t => !t.isDefault).forEach(topicType => {
                 const selectElement = document.createElement('select');
                 selectElement.id = `${subjectPrefix}-${topicType.id}-filter`;
 
@@ -4011,6 +4189,152 @@
                 });
             });
         }
+
+        // ===========================================================
+        // NOVO: Lógica para Tópicos Fracos
+        // ===========================================================
+        function renderWeakTopics() {
+            weakTopicsListContainer.innerHTML = '';
+            if (!state.userId) {
+                weakTopicsListContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #777;">Faça login para ver seus tópicos fracos.</p>';
+                return;
+            }
+
+            const userStats = database.userStats[state.userId];
+            const weakTopics = [];
+
+            for (const topicName in userStats.topics) {
+                const topicStats = userStats.topics[topicName];
+                if (topicStats.total > 0) {
+                    const accuracy = (topicStats.correct / topicStats.total) * 100;
+                    // Considera "fraco" se a precisão for menor que 70%
+                    if (accuracy < 70) {
+                        weakTopics.push({
+                            name: topicName,
+                            accuracy: accuracy,
+                            total: topicStats.total,
+                            correct: topicStats.correct
+                        });
+                    }
+                }
+            }
+
+            // Ordena os tópicos fracos pela menor precisão
+            weakTopics.sort((a, b) => a.accuracy - b.accuracy);
+
+            if (weakTopics.length === 0) {
+                weakTopicsListContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #777;">Parabéns! Nenhum tópico fraco identificado. Continue praticando para manter o bom desempenho!</p>';
+                return;
+            }
+
+            weakTopics.forEach(topic => {
+                const topicCard = document.createElement('div');
+                topicCard.className = 'weak-topic-card';
+                topicCard.innerHTML = `
+                    <h4>${topic.name}</h4>
+                    <div class="accuracy-score">${topic.accuracy.toFixed(1)}%</div>
+                    <p>Acertos: ${topic.correct} de ${topic.total} questões</p>
+                    <button class="btn btn-primary study-weak-topic" data-topic="${topic.name}">
+                        <i class="fas fa-book-open"></i> Estudar este tópico
+                    </button>
+                `;
+                weakTopicsListContainer.appendChild(topicCard);
+            });
+
+            document.querySelectorAll('.study-weak-topic').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const topicToStudy = this.getAttribute('data-topic');
+                    // Redireciona para a página de questões e aplica o filtro
+                    // Precisa determinar se é matemática ou biologia. Por simplicidade, vamos para matemática.
+                    // Em um sistema real, o tópico teria uma associação com a matéria.
+                    showPage('math'); 
+                    setTimeout(() => { // Pequeno delay para a página carregar
+                        const topicFilterSelect = document.getElementById('math-knowledgeArea-filter');
+                        if (topicFilterSelect) {
+                            topicFilterSelect.value = topicToStudy;
+                            loadMathQuestions(); // Recarrega as questões com o filtro aplicado
+                        } else {
+                            showNotification('Filtro de tópico não encontrado para Matemática.', 'info');
+                        }
+                    }, 100);
+                });
+            });
+        }
+
+        // ===========================================================
+        // NOVO: Lógica para Questões Salvas (Favoritos)
+        // ===========================================================
+        function loadBookmarkedQuestions() {
+            bookmarkedQuestionsListContainer.innerHTML = '';
+            if (!state.userId) {
+                bookmarkedQuestionsListContainer.innerHTML = '<p style="text-align: center; color: #777;">Faça login para ver suas questões salvas.</p>';
+                return;
+            }
+
+            const userStats = database.userStats[state.userId];
+            const bookmarkedQuestionIds = userStats.bookmarks || [];
+
+            if (bookmarkedQuestionIds.length === 0) {
+                bookmarkedQuestionsListContainer.innerHTML = '<p style="text-align: center; color: #777;">Você ainda não salvou nenhuma questão.</p>';
+                return;
+            }
+
+            const allQuestions = getAllQuestions();
+            const bookmarkedQuestions = allQuestions.filter(q => bookmarkedQuestionIds.includes(q.id));
+
+            bookmarkedQuestions.forEach(question => {
+                const questionItem = document.createElement('div');
+                questionItem.className = 'bookmarked-question-item';
+                questionItem.innerHTML = `
+                    <h4>${question.questionText.substring(0, 100)}...</h4>
+                    <p>Matéria: ${question.subject} | Tópico: ${question.topic} | Dificuldade: ${getDifficultyLabel(question.difficulty)}</p>
+                    <div class="actions">
+                        <button class="btn btn-secondary view-bookmarked-question" data-id="${question.id}" data-subject="${question.subject}">
+                            <i class="fas fa-eye"></i> Ver Questão
+                        </button>
+                        <button class="btn btn-logout remove-bookmark" data-id="${question.id}">
+                            <i class="fas fa-trash-alt"></i> Remover
+                        </button>
+                    </div>
+                `;
+                bookmarkedQuestionsListContainer.appendChild(questionItem);
+            });
+
+            document.querySelectorAll('.view-bookmarked-question').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const questionId = parseInt(this.getAttribute('data-id'));
+                    const subject = this.getAttribute('data-subject');
+                    
+                    // Encontra a questão no array de todas as questões
+                    const questionToView = getAllQuestions().find(q => q.id === questionId);
+                    if (!questionToView) {
+                        showNotification('Questão não encontrada.', 'error');
+                        return;
+                    }
+
+                    // Define a matéria atual e as questões para exibir apenas a selecionada
+                    state.currentSubject = subject;
+                    state.currentQuestions = [questionToView];
+                    state.currentQuestionIndex = 0;
+
+                    // Redireciona para a página da matéria e renderiza a questão
+                    if (subject === 'Matemática') {
+                        showPage('math');
+                    } else {
+                        showPage('bio');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.remove-bookmark').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const questionId = parseInt(this.getAttribute('data-id'));
+                    toggleBookmark(questionId); // Reutiliza a função de toggle para remover
+                    loadBookmarkedQuestions(); // Recarrega a lista após remover
+                });
+            });
+        }
+
 
         // Inicialização do slider de depoimentos
         $(document).ready(function(){
@@ -4044,8 +4368,6 @@
 <!-- =================== SCRIPT CRUD =================== -->
 <script>
 (function(){
-  const notify = (msg) => alert(msg);
-  
   // Função para obter todas as questões de database.exams
   function getAllQuestions() {
       return database.exams.flatMap(exam => exam.questions.map(q => ({
@@ -4074,7 +4396,7 @@
           questionItem.className = 'question-item';
           questionItem.innerHTML = `
               <h4>${question.questionText}</h4>
-              <p>Matéria: ${question.subject} | Tópico: ${question.topic} | Dificuldade: ${question.difficulty} | Ano: ${question.examYear || 'N/A'}</p>
+              <p>Matéria: ${question.subject} | Tópico: ${question.topic} | Dificuldade: ${getDifficultyLabel(question.difficulty)} | Ano: ${question.examYear || 'N/A'}</p>
               <div class="actions">
                 <button class="btn btn-secondary edit-question" data-id="${question.id}"><i class="fas fa-edit"></i> Editar</button>
                 <button class="btn btn-logout delete-question" data-id="${question.id}"><i class="fas fa-trash-alt"></i> Excluir</button>
